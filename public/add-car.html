@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Добавить автомобиль</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>Добавить новый автомобиль</h1>
+    <form id="addCarForm">
+      <table>
+        <tr>
+          <td>Марка/Модель:</td>
+          <td><input type="text" id="brandModel" required /></td>
+        </tr>
+        <tr>
+          <td>ПТС:</td>
+          <td><input type="text" id="pts" required /></td>
+        </tr>
+        <tr>
+          <td>СТС:</td>
+          <td><input type="text" id="sts" required /></td>
+        </tr>
+        <tr>
+          <td>VIN-Код:</td>
+          <td><input type="text" id="vin" required /></td>
+        </tr>
+        <tr>
+          <td>Год выпуска:</td>
+          <td><input type="number" id="year" required /></td>
+        </tr>
+        <tr>
+          <td>Дата постановки на учет:</td>
+          <td><input type="date" id="registrationDate" required /></td>
+        </tr>
+        <tr>
+          <td>Госномер:</td>
+          <td><input type="text" id="plateNumber" required /></td>
+        </tr>
+        <tr>
+          <td>ОСАГО:</td>
+          <td><input type="text" id="osago" required /></td>
+        </tr>
+        <tr>
+          <td>КАСКО:</td>
+          <td><input type="text" id="kasko" /></td>
+        </tr>
+        <tr>
+          <td>Техосмотр:</td>
+          <td><input type="date" id="techInspection" /></td>
+        </tr>
+        <tr>
+          <td>Лицензия такси:</td>
+          <td><input type="checkbox" id="taxiLicense" /></td>
+        </tr>
+        <tr>
+          <td>Выкуп или аренда:</td>
+          <td><input type="text" id="purchaseOrRent" required /></td>
+        </tr>
+        <tr>
+          <td>В лизинге:</td>
+          <td><input type="checkbox" id="leasing" /></td>
+        </tr>
+        <tr>
+          <td>Фото автомобиля (до 10 шт.):</td>
+          <td><input type="file" id="photos" accept="image/*" multiple /></td>
+        </tr>
+      </table>
+      <button type="submit">Добавить автомобиль</button>
+    </form>
+
+    <script src="/add-car.js"></script>
+  </body>
+</html>

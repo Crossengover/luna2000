@@ -1,0 +1,53 @@
+[
+  {
+    "id": "161627",
+    "brandModel": "1",
+    "pts": "1",
+    "sts": "1",
+    "vin": "1",
+    "year": "1",
+    "registrationDate": "0001-01-01",
+    "plateNumber": "1",
+    "osago": "1",
+    "kasko": "1",
+    "techInspection": "0001-01-01",
+    "taxiLicense": "true",
+    "purchaseOrRent": "1",
+    "leasing": "true",
+    "photos": ["1725982300005.jpg"]
+  },
+  {
+    "id": "126065",
+    "brandModel": "1",
+    "pts": "1",
+    "sts": "1",
+    "vin": "1",
+    "year": "1",
+    "registrationDate": "0001-01-01",
+    "plateNumber": "1",
+    "osago": "1",
+    "kasko": "1",
+    "techInspection": "0001-01-01",
+    "taxiLicense": "true",
+    "purchaseOrRent": "1",
+    "leasing": "true",
+    "photos": ["1725982341403.jpg"]
+  },
+  {
+    "id": "106582",
+    "brandModel": "1",
+    "pts": "1",
+    "sts": "1",
+    "vin": "1",
+    "year": "1",
+    "registrationDate": "0001-01-01",
+    "plateNumber": "1",
+    "osago": "1",
+    "kasko": "1",
+    "techInspection": "0001-01-01",
+    "taxiLicense": true,
+    "purchaseOrRent": "1",
+    "leasing": true,
+    "photos": ["1725982467989.jpg"]
+  }
+]
