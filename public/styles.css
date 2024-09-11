@@ -366,3 +366,51 @@ tr:nth-child(odd) {
 tr:nth-child(even) {
   background-color: #ffffff;
 }
+/* Стили для кнопки "Добавить новую машину" */
+.add-button {
+  padding: 0.5rem 1rem;
+  margin: 1rem 0;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.add-button:hover {
+  background-color: #033f7f;
+  transform: translateY(-2px);
+}
+
+.add-button:active {
+  transform: translateY(0);
+}
+/* Стили для контейнера с кнопками */
+.button-container {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Стили для кнопки "Добавить новую машину" и "На главную" */
+.add-button {
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.add-button:hover {
+  background-color: #033f7f;
+  transform: translateY(-2px);
+}
+
+.add-button:active {
+  transform: translateY(0);
+}

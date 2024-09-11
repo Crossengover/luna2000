@@ -5,10 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Просмотр Автомобилей</title>
     <link rel="stylesheet" href="styles.css" />
-    <!-- Подключите ваш файл стилей -->
   </head>
   <body>
     <h1>Список Автомобилей</h1>
+
+    <div class="button-container">
+      <!-- Кнопка "Добавить новую машину" -->
+      <button class="add-button" onclick="window.location.href='add-car.html'">
+        Добавить новую машину
+      </button>
+
+      <!-- Кнопка "На главную" -->
+      <button class="add-button" onclick="window.location.href='index.html'">
+        На главную
+      </button>
+    </div>
+
     <table id="carsTable">
       <thead>
         <tr>
@@ -33,6 +45,7 @@
         <!-- Данные будут вставлены с помощью JavaScript -->
       </tbody>
     </table>
+
     <script src="view-cars.js"></script>
   </body>
 </html>

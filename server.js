@@ -349,6 +349,121 @@ app.post("/edit-driver/:id", upload.array("photos", 4), (req, res) => {
   });
 });
 
+// Обработка POST-запроса для сохранения данных
+app.post("/save-main-data", express.json(), (req, res) => {
+  const { driver, car, balance, rent } = req.body;
+
+  if (!driver || !car || !balance || !rent) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Все поля обязательны для заполнения" });
+  }
+
+  // Чтение существующих данных
+  fs.readFile("data/main.json", "utf8", (err, data) => {
+    if (err && err.code !== "ENOENT") {
+      console.error("Ошибка чтения файла:", err);
+      return res
+        .status(500)
+        .json({ success: false, message: "Ошибка сервера" });
+    }
+
+    let mainData = [];
+    if (data) {
+      mainData = JSON.parse(data);
+    }
+
+    // Добавляем новую запись
+    mainData.push({ driver, car, balance, rent });
+
+    // Запись обновленных данных в файл
+    fs.writeFile("data/main.json", JSON.stringify(mainData, null, 2), (err) => {
+      if (err) {
+        console.error("Ошибка записи файла:", err);
+        return res
+          .status(500)
+          .json({ success: false, message: "Ошибка сервера" });
+      }
+      res.json({ success: true });
+    });
+  });
+});
+// Отдача данных из main.json
+app.get("/data/main.json", (req, res) => {
+  res.sendFile(path.join(__dirname, "data", "main.json"));
+});
+
+// Обработка POST-запроса для сохранения данных из таблицы
+app.post("/save-main-data", (req, res) => {
+  const { driverId, carId, balance, rent } = req.body;
+
+  fs.readFile("data/main.json", "utf8", (err, data) => {
+    if (err) {
+      console.error("Ошибка чтения файла:", err);
+      return res
+        .status(500)
+        .json({ success: false, message: "Ошибка сервера" });
+    }
+
+    let mainData = [];
+    if (data) {
+      mainData = JSON.parse(data);
+    }
+
+    // Проверка на наличие записи с таким же driverId и carId
+    const index = mainData.findIndex(
+      (item) => item.driverId === driverId && item.carId === carId
+    );
+    if (index !== -1) {
+      // Обновление существующей записи
+      mainData[index] = { driverId, carId, balance, rent };
+    } else {
+      // Добавление новой записи
+      mainData.push({ driverId, carId, balance, rent });
+    }
+
+    fs.writeFile("data/main.json", JSON.stringify(mainData, null, 2), (err) => {
+      if (err) {
+        console.error("Ошибка записи файла:", err);
+        return res
+          .status(500)
+          .json({ success: false, message: "Ошибка сервера" });
+      }
+
+      res.json({ success: true });
+    });
+  });
+});
+
+// Обработка POST-запроса для сохранения данных в main.json
+app.post("/save-main", express.json(), (req, res) => {
+  const mainData = req.body;
+
+  fs.writeFile("data/main.json", JSON.stringify(mainData, null, 2), (err) => {
+    if (err) {
+      console.error("Ошибка записи файла:", err);
+      return res
+        .status(500)
+        .json({ success: false, message: "Ошибка сервера" });
+    }
+    res.json({ success: true });
+  });
+});
+// Обработка POST-запроса для сохранения данных в main.json
+app.post("/save-main", express.json(), (req, res) => {
+  const mainData = req.body;
+
+  fs.writeFile("data/main.json", JSON.stringify(mainData, null, 2), (err) => {
+    if (err) {
+      console.error("Ошибка записи файла:", err);
+      return res
+        .status(500)
+        .json({ success: false, message: "Ошибка сервера" });
+    }
+    res.json({ success: true });
+  });
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Сервер запущен на http://localhost:${PORT}`);

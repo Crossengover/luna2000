@@ -67,7 +67,16 @@
           <td><input type="file" id="photos" accept="image/*" multiple /></td>
         </tr>
       </table>
-      <button type="submit">Добавить автомобиль</button>
+      <div class="button-container">
+        <button type="submit" class="add-button">Добавить автомобиль</button>
+        <button
+          type="button"
+          class="add-button"
+          onclick="window.history.back();"
+        >
+          Назад
+        </button>
+      </div>
     </form>
 
     <script src="/add-car.js"></script>
