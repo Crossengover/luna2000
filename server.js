@@ -135,6 +135,43 @@ app.get("/data/cars.json", (req, res) => {
 });
 app.use(express.static(path.join(__dirname, "public")));
 
+// Обработка DELETE-запроса для удаления автомобиля
+app.delete("/delete-car/:id", (req, res) => {
+  const carId = req.params.id.toString(); // Преобразуем ID в строку
+  console.log(`Получен запрос на удаление автомобиля с ID: ${carId}`);
+
+  fs.readFile("data/cars.json", "utf8", (err, data) => {
+    if (err) {
+      console.error("Ошибка чтения файла:", err);
+      return res
+        .status(500)
+        .json({ success: false, message: "Ошибка сервера" });
+    }
+
+    let cars = [];
+    if (data) {
+      cars = JSON.parse(data);
+    }
+
+    console.log(`Данные автомобилей: ${JSON.stringify(cars, null, 2)}`);
+
+    // Фильтрация автомобилей по ID
+    cars = cars.filter((car) => car.id.toString() !== carId); // Преобразуем ID в строку для сравнения
+    const newLength = cars.length;
+
+    fs.writeFile("data/cars.json", JSON.stringify(cars, null, 2), (err) => {
+      if (err) {
+        console.error("Ошибка записи файла:", err);
+        return res
+          .status(500)
+          .json({ success: false, message: "Ошибка сервера" });
+      }
+
+      res.json({ success: true });
+    });
+  });
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Сервер запущен на http://localhost:${PORT}`);
