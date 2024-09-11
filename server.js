@@ -6,7 +6,7 @@ const app = express();
 
 // Настройка парсера для JSON
 app.use(express.json());
-app.use(express.urlencoded({ extended: true })); // Для обработки URL-кодированных данных
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
 // Настройка multer для загрузки файлов
@@ -22,14 +22,12 @@ const upload = multer({ storage });
 
 // Обработчик для сохранения автомобиля
 app.post("/save-car", upload.array("photos", 10), (req, res) => {
-  // Проверка наличия файлов
   if (!req.files) {
     return res
       .status(400)
       .json({ success: false, message: "Файлы не загружены." });
   }
 
-  // Формируем объект нового автомобиля
   const newCar = {
     id: req.body.id,
     brandModel: req.body.brandModel,
@@ -42,10 +40,10 @@ app.post("/save-car", upload.array("photos", 10), (req, res) => {
     osago: req.body.osago,
     kasko: req.body.kasko,
     techInspection: req.body.techInspection,
-    taxiLicense: req.body.taxiLicense === "true", // Преобразование в boolean
+    taxiLicense: req.body.taxiLicense === "true",
     purchaseOrRent: req.body.purchaseOrRent,
-    leasing: req.body.leasing === "true", // Преобразование в boolean
-    photos: req.files.map((file) => file.filename), // Сохраненные имена файлов
+    leasing: req.body.leasing === "true",
+    photos: req.files.map((file) => file.filename),
   };
 
   fs.readFile(
@@ -78,6 +76,57 @@ app.post("/save-car", upload.array("photos", 10), (req, res) => {
       );
     }
   );
+});
+// Обработка POST-запроса для добавления водителя
+app.post("/save-driver", upload.array("photos", 4), (req, res) => {
+  // Проверка и получение данных из формы
+  const newDriver = {
+    id: req.body.id,
+    fio: req.body.fio,
+    passport: req.body.passport,
+    registration: req.body.registration,
+    address: req.body.address,
+    driverLicense: req.body.driverLicense,
+    parkingAddress: req.body.parkingAddress,
+    contacts: req.body.contacts,
+    note: req.body.note,
+    photos: req.files.map((file) => file.filename), // Обработка загруженных файлов
+  };
+
+  // Чтение существующих данных из файла
+  fs.readFile("data/drivers.json", "utf8", (err, data) => {
+    if (err) {
+      console.error("Ошибка чтения файла:", err);
+      return res
+        .status(500)
+        .json({ success: false, message: "Ошибка сервера" });
+    }
+
+    let drivers = [];
+    if (data) {
+      drivers = JSON.parse(data);
+    }
+
+    // Добавление нового водителя
+    drivers.push(newDriver);
+
+    // Запись обновленных данных обратно в файл
+    fs.writeFile(
+      "data/drivers.json",
+      JSON.stringify(drivers, null, 2),
+      (err) => {
+        if (err) {
+          console.error("Ошибка записи файла:", err);
+          return res
+            .status(500)
+            .json({ success: false, message: "Ошибка сервера" });
+        }
+
+        // Отправка успешного ответа клиенту
+        res.json({ success: true });
+      }
+    );
+  });
 });
 
 const PORT = process.env.PORT || 3000;

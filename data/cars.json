@@ -1,6 +1,6 @@
 [
   {
-    "id": "161627",
+    "id": "195415",
     "brandModel": "1",
     "pts": "1",
     "sts": "1",
@@ -11,13 +11,15 @@
     "osago": "1",
     "kasko": "1",
     "techInspection": "0001-01-01",
-    "taxiLicense": "true",
+    "taxiLicense": false,
     "purchaseOrRent": "1",
-    "leasing": "true",
-    "photos": ["1725982300005.jpg"]
+    "leasing": false,
+    "photos": [
+      "1726033520712.png"
+    ]
   },
   {
-    "id": "126065",
+    "id": "156760",
     "brandModel": "1",
     "pts": "1",
     "sts": "1",
@@ -27,14 +29,16 @@
     "plateNumber": "1",
     "osago": "1",
     "kasko": "1",
-    "techInspection": "0001-01-01",
-    "taxiLicense": "true",
+    "techInspection": "0011-01-01",
+    "taxiLicense": false,
     "purchaseOrRent": "1",
-    "leasing": "true",
-    "photos": ["1725982341403.jpg"]
+    "leasing": false,
+    "photos": [
+      "1726033540304.png"
+    ]
   },
   {
-    "id": "106582",
+    "id": "147337",
     "brandModel": "1",
     "pts": "1",
     "sts": "1",
@@ -45,9 +49,11 @@
     "osago": "1",
     "kasko": "1",
     "techInspection": "0001-01-01",
-    "taxiLicense": true,
+    "taxiLicense": false,
     "purchaseOrRent": "1",
-    "leasing": true,
-    "photos": ["1725982467989.jpg"]
+    "leasing": false,
+    "photos": [
+      "1726035277717.png"
+    ]
   }
 ]
