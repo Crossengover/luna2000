@@ -1,158 +1,368 @@
+/* Основные стили для страницы */
+html,
 body {
-  font-family: Arial, sans-serif;
-  margin: 20px;
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: "Roboto", Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
   padding: 0;
-  background-color: #f4f4f4;
+  background-color: #f5f7fa; /* Легкий серый фон для всего сайта */
+  color: #171717; /* Основной цвет текста */
 }
 
-h1 {
-  text-align: center;
+/* Основные стили для галереи */
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
 }
 
-table {
-  margin: 0 auto;
-  border-collapse: collapse;
-  width: 50%;
-}
-
-table td {
-  padding: 10px;
-}
-
-input,
-select {
-  width: 100%;
-  padding: 8px;
-  margin: 5px 0;
-  box-sizing: border-box;
-}
-
-button {
-  display: block;
-  margin: 20px auto;
-  padding: 10px 20px;
-  background-color: #4caf50;
-  color: white;
-  border: none;
+.gallery img {
+  max-width: 200px;
+  max-height: 150px;
+  margin: 10px;
   cursor: pointer;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
+}
+
+.gallery img:hover {
+  transform: scale(1.05);
+}
+
+/* Основное содержимое страницы */
+main {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: calc(100vh - 150px); /* Учитываем высоту заголовка и футера */
+  box-sizing: border-box; /* Включаем паддинг в расчет высоты */
+}
+
+/* Стили для заголовка */
+header {
+  background-color: #1f3b64; /* Темно-синий цвет для заголовка */
+  color: #fff;
+  padding: 1.5rem;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Легкая тень для заголовка */
+}
+
+/* Стили для таблиц */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+  background-color: #fff; /* Белый фон для таблицы */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Тень для таблицы */
+}
+
+th,
+td {
+  padding: 0.5rem; /* Уменьшенный паддинг для компактности */
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  font-size: 0.875rem; /* Уменьшенный размер шрифта */
+}
+
+th {
+  background-color: #1f3b64; /* Темно-синий фон для заголовков */
+  color: #fff; /* Белый цвет текста заголовков */
+  text-transform: uppercase;
+  font-size: 0.75rem; /* Меньший размер шрифта для заголовков */
+  letter-spacing: 0.05em;
+}
+
+tr:nth-child(odd) {
+  background-color: #d4d5d7; /* Легкий серый цвет для нечетных строк */
+}
+
+tr:nth-child(even) {
+  background-color: #ffffff; /* Белый цвет для четных строк */
+}
+
+/* Стили для кнопок */
+button {
+  padding: 0.5rem 1rem; /* Уменьшенный паддинг для компактности */
+  border: 1px solid #ddd; /* Граница вокруг кнопок */
+  background-color: #007bff; /* Приятный синий цвет для кнопок */
+  color: #fff;
+  cursor: pointer;
+  border-radius: 0.75rem; /* Умеренно закругленные края */
+  font-size: 0.875rem; /* Уменьшенный размер шрифта */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Переходы для эффектов при наведении */
 }
 
 button:hover {
-  background-color: #45a049;
+  background-color: #033f7f; /* Более темный синий при наведении */
+  transform: translateY(-2px); /* Легкий подъем кнопки при наведении */
 }
-/* Стили для таблицы автомобилей */
-#carsTable {
+
+button:active {
+  transform: translateY(0); /* Возвращение в исходное положение при нажатии */
+}
+
+/* Стили для формы */
+form {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="password"],
+textarea {
   width: 100%;
-  border-collapse: collapse;
-}
-
-#carsTable th,
-#carsTable td {
+  padding: 0.75rem;
+  margin-bottom: 1rem;
   border: 1px solid #ddd;
-  padding: 8px;
+  border-radius: 0.5rem;
+  font-size: 1rem;
 }
 
-#carsTable th {
-  background-color: #f2f2f2;
+textarea {
+  resize: vertical; /* Позволяет изменять размер по вертикали */
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+/* Стили для футера */
+footer {
+  background-color: #1f3b64;
+  color: #fff;
+  text-align: center;
+  padding: 0.5rem; /* Уменьшенный паддинг для футера */
+  font-size: 0.75rem; /* Меньший размер шрифта */
+  position: relative; /* Относительное позиционирование */
+  width: 100%;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Легкая тень сверху футера */
+  margin-top: auto; /* Гарантирует, что футер будет внизу, если контента недостаточно */
+}
+
+/* Стили для кнопок в контейнере */
+.button-container {
+  display: flex;
+  flex-wrap: wrap; /* Обеспечивает перенос кнопок на новую строку при необходимости */
+  gap: 0.5rem; /* Уменьшенный отступ между кнопками */
+  justify-content: center; /* Центрирование кнопок по горизонтали */
+  margin-top: 2rem; /* Отступ сверху */
+}
+
+.button-container button {
+  padding: 0.5rem 1rem; /* Уменьшенный паддинг для компактности */
+  border: 1px solid #ddd; /* Граница вокруг кнопок */
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 0.75rem; /* Умеренно закругленные края */
+  font-size: 0.875rem; /* Уменьшенный размер шрифта */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.button-container button:hover {
+  background-color: #033f7f;
+  transform: translateY(-2px);
+}
+
+.button-container button:active {
+  transform: translateY(0);
+}
+
+/* Стили для выпадающего меню */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 0.5rem 1rem; /* Уменьшенный паддинг для компактности */
+  border: 1px solid #ddd; /* Граница вокруг кнопки */
+  cursor: pointer;
+  border-radius: 0.75rem; /* Умеренно закругленные края */
+  font-size: 0.875rem; /* Уменьшенный размер шрифта */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.dropdown-button:hover {
+  background-color: #033f7f;
+  transform: translateY(-2px);
+}
+
+.dropdown-button:active {
+  transform: translateY(0);
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  min-width: 160px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 0.5rem;
+}
+
+.dropdown-content button {
+  color: #171717;
+  padding: 0.5rem 1rem; /* Уменьшенный паддинг для компактности */
+  border: 1px solid #ddd; /* Граница вокруг кнопок */
+  background-color: #fff;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd;
+  width: 100%;
   text-align: left;
 }
 
-#carsTable img {
-  max-width: 100px;
-  max-height: 100px;
-}
-/* Общие стили для страницы */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 0;
+.dropdown-content button:hover {
+  background-color: #f5f7fa;
 }
 
-/* Контейнер для содержимого */
-.container {
-  width: 90%;
-  max-width: 1200px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.dropdown-content button:last-child {
+  border-bottom: none;
 }
 
-/* Заголовок страницы */
-h1 {
-  text-align: center;
-  color: #333;
-}
-
-/* Кнопка "Добавить водителя" */
-#addDriverBtn {
+.dropdown:hover .dropdown-content {
   display: block;
-  width: 200px;
-  margin: 20px auto;
-  padding: 10px;
-  font-size: 16px;
-  color: #fff;
+}
+
+/* Медиа-запросы для мобильных устройств */
+@media all and (max-width: 768px) {
+  header {
+    font-size: 1.25rem;
+    padding: 1rem;
+  }
+
+  .button-container {
+    flex-direction: column;
+  }
+
+  table {
+    font-size: 0.75rem;
+  }
+
+  .gallery img {
+    max-width: 150px;
+    max-height: 100px;
+  }
+
+  form {
+    padding: 1.5rem;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  input[type="password"],
+  textarea {
+    font-size: 0.875rem;
+  }
+
+  footer {
+    font-size: 0.65rem;
+    padding: 0.5rem;
+  }
+}
+
+/* Медиа-запросы для очень маленьких экранов (до 480px) */
+@media all and (max-width: 480px) {
+  header {
+    font-size: 1rem;
+  }
+
+  .button-container {
+    gap: 0.25rem;
+  }
+
+  .gallery img {
+    max-width: 100px;
+    max-height: 75px;
+  }
+
+  table {
+    font-size: 0.625rem;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  input[type="password"],
+  textarea {
+    font-size: 0.75rem;
+  }
+}
+/* Стили для навигации */
+nav {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.nav-button {
+  padding: 0.5rem 1rem;
+  margin: 0 0.5rem;
   background-color: #007bff;
+  color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 0.75rem;
   cursor: pointer;
-  text-align: center;
-  text-decoration: none;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-#addDriverBtn:hover {
-  background-color: #0056b3;
+.nav-button:hover {
+  background-color: #033f7f;
+  transform: translateY(-2px);
 }
 
-/* Стилизация таблицы */
+.nav-button:active {
+  transform: translateY(0);
+}
+
+/* Стили для таблицы */
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  margin-bottom: 2rem;
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-table th,
-table td {
-  padding: 12px;
-  text-align: center;
+th,
+td {
+  padding: 0.75rem;
+  text-align: left;
   border-bottom: 1px solid #ddd;
+  font-size: 1rem;
 }
 
-table th {
-  background-color: #f4f4f4;
-  color: #333;
-}
-
-table td img {
-  width: 80px;
-  height: auto;
-  border-radius: 50%;
-}
-
-/* Кнопки действий в таблице */
-.action-btn {
-  padding: 5px 10px;
-  font-size: 14px;
+th {
+  background-color: #1f3b64;
   color: #fff;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
+  text-transform: uppercase;
 }
 
-.edit-btn {
-  background-color: #28a745;
+tr:nth-child(odd) {
+  background-color: #d4d5d7;
 }
 
-.edit-btn:hover {
-  background-color: #218838;
-}
-
-.delete-btn {
-  background-color: #dc3545;
-}
-
-.delete-btn:hover {
-  background-color: #c82333;
+tr:nth-child(even) {
+  background-color: #ffffff;
 }

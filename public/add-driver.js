@@ -3,10 +3,7 @@ document
   .addEventListener("submit", function (event) {
     event.preventDefault();
 
-    // Создаем объект FormData для отправки файлов
     const formData = new FormData();
-
-    // Добавляем данные из формы в formData
     formData.append(
       "id",
       Math.floor(Math.random() * (300000 - 200000 + 1)) + 200000
@@ -29,22 +26,20 @@ document
     formData.append("contacts", document.getElementById("contacts").value);
     formData.append("note", document.getElementById("note").value);
 
-    // Добавляем фотографии в formData
     const photoFiles = document.getElementById("photos").files;
     for (let i = 0; i < photoFiles.length; i++) {
       formData.append("photos", photoFiles[i]);
     }
 
-    // Отправляем данные на сервер
     fetch("/save-driver", {
       method: "POST",
-      body: formData, // Отправляем formData
+      body: formData,
     })
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
           alert("Водитель успешно добавлен!");
-          document.getElementById("addDriverForm").reset();
+          window.location.href = "view-drivers.html"; // Редирект на страницу с водителями
         } else {
           alert("Ошибка при добавлении водителя.");
         }
