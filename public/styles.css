@@ -40,3 +40,24 @@ button {
 button:hover {
   background-color: #45a049;
 }
+/* Стили для таблицы автомобилей */
+#carsTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#carsTable th,
+#carsTable td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#carsTable th {
+  background-color: #f2f2f2;
+  text-align: left;
+}
+
+#carsTable img {
+  max-width: 100px;
+  max-height: 100px;
+}

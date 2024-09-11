@@ -55,5 +55,24 @@
     "photos": [
       "1726035277717.png"
     ]
+  },
+  {
+    "id": "148025",
+    "brandModel": "Поло",
+    "pts": "2357",
+    "sts": "2359047",
+    "vin": "23450789",
+    "year": "232570983",
+    "registrationDate": "2134-04-12",
+    "plateNumber": "23897",
+    "osago": "2389457",
+    "kasko": "2345987",
+    "techInspection": "0234-03-21",
+    "taxiLicense": true,
+    "purchaseOrRent": "Аренда",
+    "leasing": true,
+    "photos": [
+      "1726036215676.png"
+    ]
   }
 ]

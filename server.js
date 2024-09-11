@@ -129,6 +129,12 @@ app.post("/save-driver", upload.array("photos", 4), (req, res) => {
   });
 });
 
+// Добавьте этот код в server.js для обработки запросов к файлу cars.json
+app.get("/data/cars.json", (req, res) => {
+  res.sendFile(path.join(__dirname, "data", "cars.json"));
+});
+app.use(express.static(path.join(__dirname, "public")));
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Сервер запущен на http://localhost:${PORT}`);
