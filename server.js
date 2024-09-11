@@ -172,6 +172,69 @@ app.delete("/delete-car/:id", (req, res) => {
   });
 });
 
+// Обработка POST-запроса для обновления автомобиля
+app.post("/edit-car/:id", upload.array("photos", 10), (req, res) => {
+  const carId = req.params.id.toString(); // Преобразуем ID в строку
+
+  fs.readFile("data/cars.json", "utf8", (err, data) => {
+    if (err) {
+      console.error("Ошибка чтения файла:", err);
+      return res
+        .status(500)
+        .json({ success: false, message: "Ошибка сервера" });
+    }
+
+    let cars = [];
+    if (data) {
+      cars = JSON.parse(data);
+    }
+
+    const carIndex = cars.findIndex((car) => car.id.toString() === carId);
+    if (carIndex === -1) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Автомобиль не найден" });
+    }
+
+    // Обновляем информацию о автомобиле
+    const updatedCar = {
+      id: req.body.id,
+      brandModel: req.body.brandModel,
+      pts: req.body.pts,
+      sts: req.body.sts,
+      vin: req.body.vin,
+      year: req.body.year,
+      registrationDate: req.body.registrationDate,
+      plateNumber: req.body.plateNumber,
+      osago: req.body.osago,
+      kasko: req.body.kasko,
+      techInspection: req.body.techInspection,
+      taxiLicense: req.body.taxiLicense === "true",
+      purchaseOrRent: req.body.purchaseOrRent,
+      leasing: req.body.leasing === "true",
+      photos: req.files.map((file) => file.filename),
+    };
+
+    // Сохраняем старые фотографии, если новые не загружены
+    if (!req.files.length) {
+      updatedCar.photos = cars[carIndex].photos;
+    }
+
+    cars[carIndex] = updatedCar;
+
+    fs.writeFile("data/cars.json", JSON.stringify(cars, null, 2), (err) => {
+      if (err) {
+        console.error("Ошибка записи файла:", err);
+        return res
+          .status(500)
+          .json({ success: false, message: "Ошибка сервера" });
+      }
+
+      res.json({ success: true });
+    });
+  });
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Сервер запущен на http://localhost:${PORT}`);

@@ -1,21 +1,21 @@
 [
   {
-    "id": "148025",
-    "brandModel": "Поло",
-    "pts": "2357",
-    "sts": "2359047",
-    "vin": "23450789",
-    "year": "232570983",
-    "registrationDate": "2134-04-12",
-    "plateNumber": "23897",
-    "osago": "2389457",
-    "kasko": "2345987",
-    "techInspection": "0234-03-21",
+    "id": "131366",
+    "brandModel": "Гранта",
+    "pts": "123",
+    "sts": "123",
+    "vin": "123",
+    "year": "123",
+    "registrationDate": "4444-04-23",
+    "plateNumber": "123",
+    "osago": "123",
+    "kasko": "123",
+    "techInspection": "0433-04-23",
     "taxiLicense": true,
-    "purchaseOrRent": "Аренда",
+    "purchaseOrRent": "123",
     "leasing": true,
     "photos": [
-      "1726036215676.png"
+      "1726038596674.png"
     ]
   }
 ]

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Редактировать автомобиль</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>Редактировать автомобиль</h1>
+    <form id="editCarForm" enctype="multipart/form-data">
+      <input type="hidden" id="carId" name="id" />
+      <label for="brandModel">Марка/Модель:</label>
+      <input type="text" id="brandModel" name="brandModel" required /><br />
+
+      <label for="pts">ПТС:</label>
+      <input type="text" id="pts" name="pts" required /><br />
+
+      <label for="sts">СТС:</label>
+      <input type="text" id="sts" name="sts" required /><br />
+
+      <label for="vin">VIN-Код:</label>
+      <input type="text" id="vin" name="vin" required /><br />
+
+      <label for="year">Год выпуска:</label>
+      <input type="text" id="year" name="year" required /><br />
+
+      <label for="registrationDate">Дата постановки на учет:</label>
+      <input
+        type="date"
+        id="registrationDate"
+        name="registrationDate"
+        required
+      /><br />
+
+      <label for="plateNumber">Госномер:</label>
+      <input type="text" id="plateNumber" name="plateNumber" required /><br />
+
+      <label for="osago">ОСАГО:</label>
+      <input type="text" id="osago" name="osago" required /><br />
+
+      <label for="kasko">КАСКО:</label>
+      <input type="text" id="kasko" name="kasko" required /><br />
+
+      <label for="techInspection">Техосмотр:</label>
+      <input
+        type="text"
+        id="techInspection"
+        name="techInspection"
+        required
+      /><br />
+
+      <label for="taxiLicense">Лицензия такси:</label>
+      <input type="checkbox" id="taxiLicense" name="taxiLicense" /><br />
+
+      <label for="purchaseOrRent">Выкуп или аренда:</label>
+      <input
+        type="text"
+        id="purchaseOrRent"
+        name="purchaseOrRent"
+        required
+      /><br />
+
+      <label for="leasing">В лизинге:</label>
+      <input type="checkbox" id="leasing" name="leasing" /><br />
+
+      <label for="photos">Фотографии:</label>
+      <input type="file" id="photos" name="photos" multiple /><br />
+
+      <div id="existingPhotos"></div>
+
+      <button type="submit">Сохранить изменения</button>
+    </form>
+
+    <script src="edit-car.js"></script>
+  </body>
+</html>
