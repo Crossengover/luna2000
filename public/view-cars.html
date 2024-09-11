@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Просмотр Автомобилей</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>Список Автомобилей</h1>
+
+    <div class="button-container">
+      <!-- Кнопка "Добавить новую машину" -->
+      <button class="add-button" onclick="window.location.href='add-car.html'">
+        Добавить новую машину
+      </button>
+
+      <!-- Кнопка "На главную" -->
+      <button class="add-button" onclick="window.location.href='index.html'">
+        На главную
+      </button>
+    </div>
+
+    <table id="carsTable">
+      <thead>
+        <tr>
+          <th>Фото</th>
+          <th>Марка/Модель</th>
+          <th>ПТС</th>
+          <th>СТС</th>
+          <th>VIN-Код</th>
+          <th>Год выпуска</th>
+          <th>Дата постановки на учет</th>
+          <th>Госномер</th>
+          <th>ОСАГО</th>
+          <th>КАСКО</th>
+          <th>Техосмотр</th>
+          <th>Лицензия такси</th>
+          <th>Выкуп или аренда</th>
+          <th>В лизинге или нет</th>
+          <th>Действия</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Данные будут вставлены с помощью JavaScript -->
+      </tbody>
+    </table>
+
+    <script src="view-cars.js"></script>
+  </body>
+</html>

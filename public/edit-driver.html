@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Редактировать водителя</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>Редактировать водителя</h1>
+    <form id="editDriverForm" enctype="multipart/form-data">
+      <input type="hidden" id="driverId" name="id" />
+      <label for="fio">ФИО:</label>
+      <input type="text" id="fio" name="fio" required /><br />
+
+      <label for="passport">Паспорт:</label>
+      <input type="text" id="passport" name="passport" /><br />
+
+      <label for="registration">Прописка:</label>
+      <input type="text" id="registration" name="registration" /><br />
+
+      <label for="address">Адрес проживания:</label>
+      <input type="text" id="address" name="address" /><br />
+
+      <label for="driverLicense">ВУ:</label>
+      <input type="text" id="driverLicense" name="driverLicense" /><br />
+
+      <label for="parkingAddress">Адрес парковки:</label>
+      <input type="text" id="parkingAddress" name="parkingAddress" /><br />
+
+      <label for="contacts">Контакты:</label>
+      <input type="text" id="contacts" name="contacts" /><br />
+
+      <label for="note">Примечание:</label>
+      <textarea id="note" name="note"></textarea><br />
+
+      <label for="photos">Фотографии:</label>
+      <input type="file" id="photos" name="photos" multiple /><br />
+
+      <div id="existingPhotos"></div>
+
+      <button type="submit">Сохранить изменения</button>
+    </form>
+
+    <script src="edit-driver.js"></script>
+  </body>
+</html>

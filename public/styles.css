@@ -1,42 +1,195 @@
+/* Общие стили для всего приложения */
 body {
   font-family: Arial, sans-serif;
-  margin: 20px;
+  margin: 0;
   padding: 0;
-  background-color: #f4f4f4;
+  background-color: #f8f9fa;
 }
 
 h1 {
   text-align: center;
+  color: #333;
+  margin: 1rem 0;
 }
 
+/* Стили для таблицы */
 table {
-  margin: 0 auto;
-  border-collapse: collapse;
-  width: 50%;
-}
-
-table td {
-  padding: 10px;
-}
-
-input,
-select {
   width: 100%;
-  padding: 8px;
-  margin: 5px 0;
-  box-sizing: border-box;
+  border-collapse: collapse;
+  margin: 1rem 0;
 }
 
+th,
+td {
+  padding: 0.75rem;
+  border: 1px solid #dee2e6;
+  text-align: left;
+}
+
+thead {
+  background-color: #007bff;
+  color: #fff;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Кнопки */
 button {
-  display: block;
-  margin: 20px auto;
-  padding: 10px 20px;
-  background-color: #4caf50;
-  color: white;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  background-color: #007bff;
+  color: #fff;
   border: none;
+  border-radius: 0.75rem;
   cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 button:hover {
-  background-color: #45a049;
+  background-color: #033f7f;
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+/* Стили для формы */
+form {
+  margin: 1rem;
+}
+
+form table {
+  width: 100%;
+}
+
+form td {
+  padding: 0.5rem;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="file"] {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
+
+input[type="checkbox"] {
+  margin-right: 0.5rem;
+}
+
+/* Стили для кнопок добавления новой пары */
+.add-button {
+  padding: 0.5rem 1rem;
+  margin: 1rem 0;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.add-button:hover {
+  background-color: #033f7f;
+  transform: translateY(-2px);
+}
+
+.add-button:active {
+  transform: translateY(0);
+}
+
+/* Стили для кнопок редактирования и удаления */
+.edit-button,
+.delete-button {
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  margin: 0.25rem;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.edit-button:hover,
+.delete-button:hover {
+  background-color: #033f7f;
+  transform: translateY(-2px);
+}
+
+.edit-button:active,
+.delete-button:active {
+  transform: translateY(0);
+}
+
+/* Стили для блока списания аренды */
+.write-off-block {
+  margin: 1rem 0;
+  padding: 1rem;
+  border: 1px solid #007bff;
+  border-radius: 0.75rem;
+  background-color: #e9ecef;
+}
+
+.write-off-button {
+  background-color: #dc3545;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.write-off-button:hover {
+  background-color: #c82333;
+  transform: translateY(-2px);
+}
+
+.write-off-button:active {
+  transform: translateY(0);
+}
+
+/* Стили для блока "Назад" и других кнопок навигации */
+.nav-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 0.75rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 1rem;
+  margin: 0.5rem;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-button:hover {
+  background-color: #033f7f;
+  transform: translateY(-2px);
+}
+
+.nav-button:active {
+  transform: translateY(0);
+}
+
+/* Стили для навигационных кнопок */
+.nav-buttons {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.nav-buttons a {
+  margin: 0 0.5rem;
 }
