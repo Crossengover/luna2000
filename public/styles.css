@@ -61,3 +61,98 @@ button:hover {
   max-width: 100px;
   max-height: 100px;
 }
+/* Общие стили для страницы */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+/* Контейнер для содержимого */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Заголовок страницы */
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+/* Кнопка "Добавить водителя" */
+#addDriverBtn {
+  display: block;
+  width: 200px;
+  margin: 20px auto;
+  padding: 10px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+}
+
+#addDriverBtn:hover {
+  background-color: #0056b3;
+}
+
+/* Стилизация таблицы */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table th,
+table td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+table th {
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+table td img {
+  width: 80px;
+  height: auto;
+  border-radius: 50%;
+}
+
+/* Кнопки действий в таблице */
+.action-btn {
+  padding: 5px 10px;
+  font-size: 14px;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.edit-btn {
+  background-color: #28a745;
+}
+
+.edit-btn:hover {
+  background-color: #218838;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+}
+
+.delete-btn:hover {
+  background-color: #c82333;
+}

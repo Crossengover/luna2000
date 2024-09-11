@@ -235,6 +235,120 @@ app.post("/edit-car/:id", upload.array("photos", 10), (req, res) => {
   });
 });
 
+// Отдача данных водителей из файла
+app.get("/data/drivers.json", (req, res) => {
+  res.sendFile(path.join(__dirname, "data", "drivers.json"));
+});
+
+app.use(express.static(path.join(__dirname, "public")));
+
+// Обработка DELETE-запроса для удаления водителя
+app.delete("/delete-driver/:id", (req, res) => {
+  const driverId = req.params.id;
+
+  fs.readFile("data/drivers.json", "utf8", (err, data) => {
+    if (err) {
+      console.error("Ошибка чтения файла:", err);
+      return res
+        .status(500)
+        .json({ success: false, message: "Ошибка сервера" });
+    }
+
+    let drivers = JSON.parse(data);
+    const driverIndex = drivers.findIndex((d) => d.id === driverId);
+
+    if (driverIndex !== -1) {
+      // Удаляем фотографии водителя
+      drivers[driverIndex].photos.forEach((photo) => {
+        fs.unlink(path.join(__dirname, "public", "images", photo), (err) => {
+          if (err) console.error("Ошибка удаления файла:", err);
+        });
+      });
+
+      drivers.splice(driverIndex, 1);
+
+      fs.writeFile(
+        "data/drivers.json",
+        JSON.stringify(drivers, null, 2),
+        (err) => {
+          if (err) {
+            console.error("Ошибка записи файла:", err);
+            return res
+              .status(500)
+              .json({ success: false, message: "Ошибка сервера" });
+          }
+          res.json({ success: true });
+        }
+      );
+    } else {
+      res.status(404).json({ success: false, message: "Водитель не найден" });
+    }
+  });
+});
+
+// Обработка POST-запроса для редактирования водителя
+app.post("/edit-driver/:id", upload.array("photos", 4), (req, res) => {
+  const driverId = req.params.id;
+
+  fs.readFile("data/drivers.json", "utf8", (err, data) => {
+    if (err) {
+      console.error("Ошибка чтения файла:", err);
+      return res
+        .status(500)
+        .json({ success: false, message: "Ошибка сервера" });
+    }
+
+    let drivers = [];
+    if (data) {
+      drivers = JSON.parse(data);
+    }
+
+    const driverIndex = drivers.findIndex((d) => d.id === driverId);
+    if (driverIndex === -1) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Водитель не найден" });
+    }
+
+    const existingDriver = drivers[driverIndex];
+
+    const updatedDriver = {
+      ...existingDriver,
+      fio: req.body.fio,
+      passport: req.body.passport,
+      registration: req.body.registration,
+      address: req.body.address,
+      driverLicense: req.body.driverLicense,
+      parkingAddress: req.body.parkingAddress,
+      contacts: req.body.contacts,
+      note: req.body.note,
+      photos: existingDriver.photos, // Сохраняем старые фотографии
+    };
+
+    // Обновление фотографий
+    if (req.files.length > 0) {
+      updatedDriver.photos = req.files.map((file) => file.filename); // Добавляем новые фотографии
+    }
+
+    drivers[driverIndex] = updatedDriver;
+
+    fs.writeFile(
+      "data/drivers.json",
+      JSON.stringify(drivers, null, 2),
+      (err) => {
+        if (err) {
+          console.error("Ошибка записи файла:", err);
+          return res
+            .status(500)
+            .json({ success: false, message: "Ошибка сервера" });
+        }
+
+        res.json({ success: true });
+      }
+    );
+  });
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Сервер запущен на http://localhost:${PORT}`);

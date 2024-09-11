@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const existingPhotosDiv = document.getElementById("existingPhotos");
         driver.photos.forEach((photo) => {
           const img = document.createElement("img");
-          img.src = `/public/images/${photo}`;
+          img.src = `/images/${photo}`;
           img.style.width = "100px";
           img.style.height = "auto";
           existingPhotosDiv.appendChild(img);
@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .then((data) => {
           if (data.success) {
             alert("Информация о водителе успешно обновлена!");
-            window.location.href = "view-drivers.html";
+            window.location.href = "view-drivers.html"; // Перенаправление на страницу со списком водителей
           } else {
             alert("Ошибка при обновлении информации о водителе.");
           }
