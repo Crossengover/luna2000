@@ -1,4 +1,5 @@
 using luna2000.Converters;
+using luna2000.Data;
 using Microsoft.Extensions.FileProviders;
 
 namespace luna2000;
@@ -14,6 +15,8 @@ public class Program
                 {
                     options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
                 });
+
+        builder.Services.AddDbContext<LunaDbContext>(ServiceLifetime.Scoped);
 
         var app = builder.Build();
 
