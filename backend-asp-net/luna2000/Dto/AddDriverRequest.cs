@@ -1,11 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using luna2000.Models;
 
-namespace luna2000.Models;
+namespace luna2000.Dto;
 
-public class DriverEntity
+public class AddDriverRequest
 {
-    [Key]
-    public Guid Id { get; set; }
+    public string Id { get; set; }
 
     public string Address { get; set; }
 
@@ -23,5 +22,5 @@ public class DriverEntity
 
     public string Registration { get; set; }
 
-    public virtual ICollection<PhotoEntity>? Photos { get; set; }
+    public virtual ICollection<IFormFile>? Photos { get; set; }
 }

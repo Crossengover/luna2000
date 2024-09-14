@@ -2,7 +2,7 @@
 
 namespace luna2000.Dto;
 
-public class SaveCarRequest
+public class AddCarRequest
 {
     public string Id { get; set; } = default!;
 

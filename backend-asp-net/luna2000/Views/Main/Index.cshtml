@@ -1,28 +1,19 @@
-﻿@model luna2000.Dto.MainViewDto
-
-<h1>Главная страница</h1>
-
-<!-- Кнопки для навигации -->
-<div class="nav-buttons">
-    <a href="driver" class="nav-button">Водители</a>
-    <a href="/car" class="nav-button">Машины</a>
-    <a href="download.html" class="nav-button">Скачать</a>
-</div>
+﻿@model DriverEntity[]
 
 <!-- Таблица для отображения данных -->
 <h2>Таблица данных</h2>
 <table id="mainTable">
     <thead>
-        <tr>
-            <th>Водитель</th>
-            <th>Авто</th>
-            <th>Баланс</th>
-            <th>Аренда</th>
-            <th>Действия</th>
-        </tr>
+    <tr>
+        <th>Водитель</th>
+        <th>Авто</th>
+        <th>Баланс</th>
+        <th>Аренда</th>
+        <th>Действия</th>
+    </tr>
     </thead>
     <tbody>
-        <!-- Данные будут вставлены с помощью JavaScript -->
+    <!-- Данные будут вставлены с помощью JavaScript -->
     </tbody>
 </table>
 
@@ -31,18 +22,12 @@
 <form id="pairForm">
     <label for="driverSelect">Выберите водителя:</label>
     <select id="driverSelect" required>
-        @foreach (var driver in Model.Drivers)
-        {
-            <option value="@driver.Id">@driver.Fio</option>
-        }
+        <!-- Опции будут добавлены с помощью JavaScript -->
     </select><br />
 
     <label for="carSelect">Выберите машину:</label>
     <select id="carSelect" required>
-        @foreach (var car in Model.Cars)
-        {
-            <option value="@car.Id">@car.BrandModel (@car.PlateNumber)</option>
-        }
+        <!-- Опции будут добавлены с помощью JavaScript -->
     </select><br />
 
     <label for="balance">Баланс:</label>
@@ -61,9 +46,3 @@
     <h2>Списание аренды</h2>
     <button id="writeOffButton">Списать аренду</button>
 </div>
-
-
-@section Scripts
-{
-    <script src="js/index.js"></script>
-}

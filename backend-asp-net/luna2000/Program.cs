@@ -1,5 +1,7 @@
 using luna2000.Converters;
 using luna2000.Data;
+using luna2000.MapperProfiles;
+using luna2000.Service;
 using Microsoft.Extensions.FileProviders;
 
 namespace luna2000;
@@ -17,6 +19,11 @@ public class Program
                 });
 
         builder.Services.AddDbContext<LunaDbContext>(ServiceLifetime.Scoped);
+        builder.Services.AddScoped<IFileStorage, FileStorage>();
+        builder.Services.AddAutoMapper(expression => expression.AddProfiles(new []
+        {
+            new EntityProfiles()
+        }));
 
         var app = builder.Build();
 
@@ -29,7 +36,7 @@ public class Program
         app.UseStaticFiles(new StaticFileOptions
         {
             FileProvider = new PhysicalFileProvider(
-                Path.Combine(Directory.GetCurrentDirectory(), "../../public")),
+                Path.Combine(Directory.GetCurrentDirectory(), "files")),
             RequestPath = ""
         });
 

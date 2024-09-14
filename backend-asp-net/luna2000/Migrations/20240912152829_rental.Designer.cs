@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using luna2000.Data;
 
@@ -10,17 +11,17 @@ using luna2000.Data;
 namespace luna2000.Migrations
 {
     [DbContext(typeof(LunaDbContext))]
-    partial class LunaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240912152829_rental")]
+    partial class rental
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.33");
 
             modelBuilder.Entity("luna2000.Models.CarEntity", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<string>("Id")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("BrandModel")
@@ -89,18 +90,12 @@ namespace luna2000.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("CarId1")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("CarName")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("DriverId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("DriverId1")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("DriverName")
@@ -112,17 +107,16 @@ namespace luna2000.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CarId1");
+                    b.HasIndex("CarId");
 
-                    b.HasIndex("DriverId1");
+                    b.HasIndex("DriverId");
 
                     b.ToTable("CarRentals");
                 });
 
             modelBuilder.Entity("luna2000.Models.DriverEntity", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<string>("Id")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Address")
@@ -164,24 +158,17 @@ namespace luna2000.Migrations
 
             modelBuilder.Entity("luna2000.Models.PhotoEntity", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CarId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("CarId")
+                    b.Property<string>("DriverId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("DriverId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("FileExtension")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("FileId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("FileName")
+                    b.Property<string>("Path")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -198,13 +185,13 @@ namespace luna2000.Migrations
                 {
                     b.HasOne("luna2000.Models.CarEntity", "Car")
                         .WithMany()
-                        .HasForeignKey("CarId1")
+                        .HasForeignKey("CarId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("luna2000.Models.DriverEntity", "Driver")
                         .WithMany()
-                        .HasForeignKey("DriverId1")
+                        .HasForeignKey("DriverId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

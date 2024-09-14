@@ -1,0 +1,58 @@
+﻿<header>
+    <h1>Добавить Водителя</h1>
+</header>
+<main>
+    <form id="addDriverForm" enctype="multipart/form-data">
+        <label for="fio">ФИО:</label>
+        <input type="text" id="fio" name="fio" required /><br />
+
+        <label for="passport">Паспорт:</label>
+        <input type="text" id="passport" name="passport" required /><br />
+
+        <label for="registration">Прописка:</label>
+        <input type="text"
+               id="registration"
+               name="registration"
+               required /><br />
+
+        <label for="address">Адрес проживания:</label>
+        <input type="text" id="address" name="address" required /><br />
+
+        <label for="driverLicense">Водительское удостоверение:</label>
+        <input type="text"
+               id="driverLicense"
+               name="driverLicense"
+               required /><br />
+
+        <label for="parkingAddress">Адрес парковки:</label>
+        <input type="text"
+               id="parkingAddress"
+               name="parkingAddress"
+               required /><br />
+
+        <label for="contacts">Контакты:</label>
+        <input type="text" id="contacts" name="contacts" required /><br />
+
+        <label for="note">Примечание:</label>
+        <textarea id="note" name="note"></textarea><br />
+
+        <label for="photos">Фотографии (до 4 штук):</label>
+        <input type="file"
+               id="photos"
+               name="photos"
+               multiple
+               accept="image/*" /><br />
+
+        <button type="submit">Добавить Водителя</button>
+        <button type="button"
+                class="add-button"
+                onclick="window.history.back();">
+            Назад
+        </button>
+    </form>
+</main>
+
+@section Scripts
+{
+    <script src="/js/add-driver.js"></script>
+}

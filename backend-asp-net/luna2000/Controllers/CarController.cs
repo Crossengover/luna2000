@@ -1,4 +1,5 @@
-﻿using luna2000.Data;
+﻿using AutoMapper;
+using luna2000.Data;
 using luna2000.Dto;
 using luna2000.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -10,23 +11,40 @@ namespace luna2000.Controllers;
 public class CarController : Controller
 {
     private readonly LunaDbContext _dbContext;
+    private readonly IMapper _mapper;
 
-    public CarController(LunaDbContext dbContext)
+    public CarController(LunaDbContext dbContext, IMapper mapper)
     {
         _dbContext = dbContext;
+        _mapper = mapper;
     }
 
-    [Route("/")]
+    [Route("")]
     public async Task<IActionResult> Index()
     {
-        var drivers = _dbContext.Set<DriverEntity>().AsNoTracking().ToArray();
-        return View(drivers);
+        var cars = _dbContext.Set<CarEntity>()
+            .Include(entity => entity.Photos)
+            .AsNoTracking()
+            .ToArray();
+        return View(cars);
+    }
+
+    [HttpGet]
+    [Route("add")]
+    public IActionResult AddCar()
+    {
+        return View("Add");
     }
 
     [Route("/save-car")]
     [HttpPost]
-    public IActionResult SaveCar(SaveCarRequest request)
+    public async Task<IActionResult> SaveCar(AddCarRequest request)
     {
+        var car = _mapper.Map<CarEntity>(request);
+
+        _dbContext.Set<CarEntity>().Add(car);
+        await _dbContext.SaveChangesAsync();
+
         return Json(request);
     }
 }

@@ -1,48 +1,70 @@
-﻿@model DriverEntity[]
+﻿@model CarEntity[]
 
-<!-- Таблица для отображения данных -->
-<h2>Таблица данных</h2>
-<table id="mainTable">
+<h1>Список Автомобилей</h1>
+
+<div class="button-container">
+    <!-- Кнопка "Добавить новую машину" -->
+    <button class="add-button" onclick="window.location.href='/car/add'">
+        Добавить новую машину
+    </button>
+
+    <!-- Кнопка "На главную" -->
+    <button class="add-button" onclick="window.location.href='index.html'">
+        На главную
+    </button>
+</div>
+
+<table id="carsTable">
     <thead>
         <tr>
-            <th>Водитель</th>
-            <th>Авто</th>
-            <th>Баланс</th>
-            <th>Аренда</th>
+            <th>Фото</th>
+            <th>Марка/Модель</th>
+            <th>ПТС</th>
+            <th>СТС</th>
+            <th>VIN-Код</th>
+            <th>Год выпуска</th>
+            <th>Дата постановки на учет</th>
+            <th>Госномер</th>
+            <th>ОСАГО</th>
+            <th>КАСКО</th>
+            <th>Техосмотр</th>
+            <th>Лицензия такси</th>
+            <th>Выкуп или аренда</th>
+            <th>В лизинге или нет</th>
             <th>Действия</th>
         </tr>
     </thead>
     <tbody>
-        <!-- Данные будут вставлены с помощью JavaScript -->
+        @foreach (var car in Model)
+        {
+            <tr>
+                <td>
+                    @if (car.Photos != null)
+                    {
+                        foreach (var photo in car.Photos)
+                        {
+                            <img src="/images/@photo.FileName" alt="@car.BrandModel" style="width: 100px; height: auto;">
+                        }
+                    }
+                </td>
+                <td>@car.BrandModel</td>
+                <td>@car.Pts</td>
+                <td>@car.Sts</td>
+                <td>@car.Vin</td>
+                <td>@car.Year</td>
+                <td>@car.RegistrationDate</td>
+                <td>@car.PlateNumber</td>
+                <td>@car.Osago</td>
+                <td>@car.Kasko</td>
+                <td>@car.TechInspection</td>
+                <td>@car.TaxiLicense</td>
+                <td>@car.PurchaseOrRent</td>
+                <td>@(car.Leasing ? "Да" : "Нет")</td>
+                <td>
+                    <button onclick="editCar('@(car.Id)')">Редактировать</button>
+                    <button onclick="deleteCar('@(car.Id)')">Удалить</button>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
-
-<!-- Форма для добавления и редактирования пары -->
-<h2>Добавить или редактировать пару</h2>
-<form id="pairForm">
-    <label for="driverSelect">Выберите водителя:</label>
-    <select id="driverSelect" required>
-        <!-- Опции будут добавлены с помощью JavaScript -->
-    </select><br />
-
-    <label for="carSelect">Выберите машину:</label>
-    <select id="carSelect" required>
-        <!-- Опции будут добавлены с помощью JavaScript -->
-    </select><br />
-
-    <label for="balance">Баланс:</label>
-    <input type="number" id="balance" step="0.01" required /><br />
-
-    <label for="rent">Аренда:</label>
-    <input type="number" id="rent" step="0.01" required /><br />
-
-    <input type="hidden" id="pairId" />
-    <button type="submit" id="saveButton">Добавить пару</button>
-    <button type="button" id="cancelButton">Отмена</button>
-</form>
-
-<!-- Блок для кнопки списания аренды -->
-<div id="writeOffBlock">
-    <h2>Списание аренды</h2>
-    <button id="writeOffButton">Списать аренду</button>
-</div>

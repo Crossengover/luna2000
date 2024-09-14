@@ -1,0 +1,59 @@
+﻿@model DriverEntity[]
+
+<div class="container">
+    <div class="header">
+        <h1>Список водителей</h1>
+        <a href="/driver/add" class="nav-button">Добавить водителя</a>
+        <a href="/" class="nav-button">На главную</a>
+    </div>
+    <table id="driversTable">
+        <thead>
+            <tr>
+                <th>ФИО</th>
+                <th>Паспорт</th>
+                <th>Прописка</th>
+                <th>Адрес проживания</th>
+                <th>ВУ</th>
+                <th>Адрес парковки</th>
+                <th>Контакты</th>
+                <th>Примечание</th>
+                <th>Фотографии</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var driver in Model)
+            {
+                <tr>
+                    <td>@driver.Fio</td>
+                    <td>@driver.Passport</td>
+                    <td>@driver.Registration</td>
+                    <td>@driver.Address</td>
+                    <td>@driver.DriverLicense</td>
+                    <td>@driver.ParkingAddress</td>
+                    <td>@driver.Contacts</td>
+                    <td>@driver.Note</td>
+                    <td>
+                        @if (driver.Photos != null)
+                        {
+                            foreach (var photo in driver.Photos)
+                            {
+                                <img src="/@photo.FileId@(photo.FileExtension)" style="width: 100px; height: auto;" alt="">
+                                <br>
+                            }
+                        }
+                    </td>
+                    <td>
+                        <button onclick="editDriver('201739')">Редактировать</button>
+                        <button onclick="deleteDriver('201739')">Удалить</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts
+    {
+    <script src="/js/view-drivers.js"></script>
+}
