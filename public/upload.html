@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Загрузка файлов</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <h1>Загрузка файлов</h1>
+  <body>
+    <div class="container">
+      <div class="header">
+        <a href="index.html" class="nav-button">На главную</a>
+      </div>
+    </div>
+    <form
+      id="uploadForm"
+      action="/upload"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <input type="file" id="fileInput" name="files" multiple />
+      <button type="submit">Загрузить</button>
+    </form>
+    <script src="upload.js"></script>
+  </body>
+</html>

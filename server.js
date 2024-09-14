@@ -464,6 +464,58 @@ app.post("/save-main", express.json(), (req, res) => {
   });
 });
 
+// Настройка multer для загрузки файлов
+const fileStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, "public", "documents")); // Папка для сохранения файлов
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname)); // Уникальное имя файла
+  },
+});
+const fileUpload = multer({ storage: fileStorage });
+
+// Обработчик загрузки файла
+app.post("/upload", fileUpload.single("file"), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ message: "Файл не загружен." });
+  }
+
+  console.log("Загруженный файл:", req.file);
+
+  res.json({ message: "Файл успешно загружен." });
+});
+
+// Получение списка файлов
+app.get("/files", (req, res) => {
+  const documentsPath = path.join(__dirname, "public", "documents");
+  fs.readdir(documentsPath, (err, files) => {
+    if (err) {
+      console.error("Ошибка чтения папки:", err);
+      return res
+        .status(500)
+        .json({ success: false, message: "Ошибка сервера" });
+    }
+    res.json(files);
+  });
+});
+
+// Удаление файла
+app.delete("/delete-file/:filename", (req, res) => {
+  const fileName = req.params.filename;
+  const filePath = path.join(__dirname, "public", "documents", fileName);
+
+  fs.unlink(filePath, (err) => {
+    if (err) {
+      console.error("Ошибка удаления файла:", err);
+      return res
+        .status(500)
+        .json({ success: false, message: "Ошибка сервера" });
+    }
+    res.json({ success: true });
+  });
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Сервер запущен на http://localhost:${PORT}`);
