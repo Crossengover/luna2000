@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  luna2000:
+    image: luna2000
+    container_name: luna2000
+    ports:
+      - "5500:80" # Случайный порт на вашей машине к порту 80 внутри контейнера
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    depends_on:
+      - luna2000
+    ports:
+      - "80:80" # Перенаправляем порт 80 на основной машине
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
