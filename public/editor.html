@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Редактор документов</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  
+  <body>
+    <h1>Редактор документов</h1>
+<div class="container">
+    <div class="header">
+      <a href="index.html" class="nav-button">На главную</a>
+    </div>
+    <!-- Выбор шаблона Word-документа -->
+    <form id="documentForm" action="/generate-document" method="POST">
+      <label for="template">Выберите шаблон:</label>
+      <select name="template" id="template">
+        <!-- Шаблоны будут загружаться динамически -->
+      </select>
+
+      <label for="driver">Выберите водителя:</label>
+      <select name="driver" id="driver">
+        <!-- Водители будут загружаться динамически -->
+      </select>
+
+      <label for="car">Выберите машину:</label>
+      <select name="car" id="car">
+        <!-- Машины будут загружаться динамически -->
+      </select>
+
+      <button type="submit">Сгенерировать документ</button>
+    </form>
+
+    <script src="/editor.js"></script>
+  </body>
+</html>

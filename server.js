@@ -3,6 +3,8 @@ const path = require("path");
 const fs = require("fs");
 const multer = require("multer");
 const app = express();
+const Docxtemplater = require("docxtemplater");
+const PizZip = require("pizzip");
 
 // Настройка парсера для JSON
 app.use(express.json());
@@ -514,6 +516,79 @@ app.delete("/delete-file/:filename", (req, res) => {
     }
     res.json({ success: true });
   });
+});
+
+// Возвращаем список шаблонов
+app.get("/templates", (req, res) => {
+  const templatesDir = path.join(__dirname, "templates");
+  fs.readdir(templatesDir, (err, files) => {
+    if (err) {
+      return res.status(500).send("Error reading templates directory");
+    }
+    res.json({ templates: files });
+  });
+});
+
+// Возвращаем данные водителей
+app.get("/drivers", (req, res) => {
+  const drivers = JSON.parse(fs.readFileSync("./data/drivers.json"));
+  res.json(drivers);
+});
+
+// Возвращаем данные машин
+app.get("/cars", (req, res) => {
+  const cars = JSON.parse(fs.readFileSync("./data/cars.json"));
+  res.json(cars);
+});
+
+// Обработка генерации документа
+app.post("/generate-document", async (req, res) => {
+  const { template, driver, car } = req.body;
+
+  // Получаем данные водителя и машины
+  const drivers = JSON.parse(fs.readFileSync("./data/drivers.json"));
+  const cars = JSON.parse(fs.readFileSync("./data/cars.json"));
+
+  const selectedDriver = drivers.find((d) => d.id === driver);
+  const selectedCar = cars.find((c) => c.id === car);
+
+  if (!selectedDriver || !selectedCar) {
+    return res.status(400).send("Driver or car not found");
+  }
+
+  // Читаем шаблон
+  const templatePath = path.join(__dirname, "templates", template);
+  const content = fs.readFileSync(templatePath, "binary");
+
+  const zip = new PizZip(content);
+  const doc = new Docxtemplater(zip);
+
+  // Подставляем все данные
+  doc.setData({
+    ...selectedDriver, // Все поля водителя
+    ...selectedCar, // Все поля машины
+  });
+
+  try {
+    doc.render();
+  } catch (error) {
+    return res.status(500).send("Error rendering document");
+  }
+
+  const buf = doc.getZip().generate({ type: "nodebuffer" });
+
+  // Устанавливаем заголовки для загрузки файла
+  res.set(
+    "Content-Disposition",
+    `attachment; filename=document_${Date.now()}.docx`
+  );
+  res.set(
+    "Content-Type",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+  );
+
+  // Отправляем сгенерированный документ клиенту
+  res.send(buf);
 });
 
 const PORT = process.env.PORT || 3000;
