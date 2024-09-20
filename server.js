@@ -6,6 +6,10 @@ const app = express();
 const Docxtemplater = require("docxtemplater");
 const PizZip = require("pizzip");
 
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/public/login.html"); // укажите нужную страницу
+});
+
 // Настройка парсера для JSON
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -41,6 +45,8 @@ app.post("/save-car", upload.array("photos", 10), (req, res) => {
     plateNumber: req.body.plateNumber,
     osago: req.body.osago,
     kasko: req.body.kasko,
+    color: req.body.color,
+    typeOfCar: req.body.typeOfCar,
     techInspection: req.body.techInspection,
     taxiLicense: req.body.taxiLicense === "true",
     purchaseOrRent: req.body.purchaseOrRent,
@@ -590,6 +596,193 @@ app.post("/generate-document", async (req, res) => {
   // Отправляем сгенерированный документ клиенту
   res.send(buf);
 });
+
+const moment = require("moment-timezone");
+
+// Функция для списания аренды
+function deductRent() {
+  // Загружаем данные о водителях и главные данные
+  const drivers = JSON.parse(fs.readFileSync("./data/drivers.json"));
+  const mainData = JSON.parse(fs.readFileSync("./data/main.json"));
+
+  // Проходим по всем записям в main.json
+  mainData.forEach((record) => {
+    const selectedDriver = drivers.find((d) => d.id === record.driverId);
+
+    if (selectedDriver) {
+      const rentAmount = parseFloat(record.rent); // Получаем сумму аренды из записи
+
+      // Проверяем, что сумма аренды и баланс действительны
+      if (!isNaN(rentAmount) && !isNaN(parseFloat(selectedDriver.balance))) {
+        // Уменьшаем баланс водителя
+        selectedDriver.balance = (
+          parseFloat(selectedDriver.balance) - rentAmount
+        ).toFixed(2);
+
+        // Обновляем запись в mainData
+        record.balance = selectedDriver.balance;
+
+        console.log(
+          `Аренда списана: ${rentAmount}. Новый баланс для ${selectedDriver.fio}: ${selectedDriver.balance}`
+        );
+      } else {
+        console.error(
+          `Ошибка: неверные данные для аренды или баланса. rentAmount: ${rentAmount}, balance: ${selectedDriver.balance}`
+        );
+      }
+    } else {
+      console.error(`Водитель с ID ${record.driverId} не найден`);
+    }
+  });
+
+  // Записываем обновленные данные обратно в файлы
+  fs.writeFileSync("./data/drivers.json", JSON.stringify(drivers, null, 2));
+  fs.writeFileSync("./data/main.json", JSON.stringify(mainData, null, 2));
+}
+
+// Функция для автоматического списания аренды
+function startAutoDeduction() {
+  const targetTime = "21:00"; // Время списания
+  const timeZone = "Asia/Yekaterinburg"; // Часовой пояс Екатеринбурга
+
+  setInterval(() => {
+    const now = moment().tz(timeZone);
+    const currentTime = now.format("HH:mm");
+
+    if (currentTime === targetTime) {
+      // Здесь вызываем функцию списания аренды
+      deductRent();
+    }
+  }, 60000); // Проверяем каждую минуту
+}
+
+// Запускаем автоматическое списание
+startAutoDeduction();
+
+app.post("/save-drivers", (req, res) => {
+  const drivers = req.body;
+  fs.writeFileSync("./data/drivers.json", JSON.stringify(drivers, null, 2));
+  res.sendStatus(200); // Успешно
+});
+
+// Путь к файлам
+const mainJsonPath = path.join(__dirname, "data", "main.json");
+const driversJsonPath = path.join(__dirname, "data", "drivers.json");
+
+// Функция для синхронизации балансов
+function syncBalances() {
+  // Чтение данных из main.json
+  fs.readFile(mainJsonPath, "utf-8", (err, mainData) => {
+    if (err) {
+      console.error("Ошибка чтения main.json:", err);
+      return;
+    }
+
+    let mainPairs;
+    try {
+      mainPairs = JSON.parse(mainData);
+    } catch (parseError) {
+      console.error("Ошибка парсинга main.json:", parseError);
+      return;
+    }
+
+    // Чтение данных из drivers.json
+    fs.readFile(driversJsonPath, "utf-8", (err, driversData) => {
+      if (err) {
+        console.error("Ошибка чтения drivers.json:", err);
+        return;
+      }
+
+      let drivers;
+      try {
+        drivers = JSON.parse(driversData);
+      } catch (parseError) {
+        console.error("Ошибка парсинга drivers.json:", parseError);
+        return;
+      }
+
+      // Создание мапы для быстрого доступа к балансу из main.json
+      const balanceMap = {};
+      mainPairs.forEach((pair) => {
+        balanceMap[pair.driverId] = pair.balance; // Используем driverId как ключ
+      });
+
+      // Обновление балансов водителей
+      drivers.forEach((driver) => {
+        // Приведение id к строке для сравнения
+        const driverId = driver.id.toString();
+        if (balanceMap[driverId] !== undefined) {
+          driver.balance = balanceMap[driverId]; // Перезапись баланса
+          console.log(
+            `Обновлен баланс для водителя ${driver.fio}: ${driver.balance}`
+          ); // Отладочная информация
+        } else {
+          console.log(
+            `Баланс для водителя ${driver.fio} не обновлен (ID не найден).`
+          );
+        }
+      });
+
+      // Сохранение обновленных данных в drivers.json
+      fs.writeFile(driversJsonPath, JSON.stringify(drivers, null, 2), (err) => {
+        if (err) {
+          console.error("Ошибка записи в drivers.json:", err);
+        } else {
+          console.log(
+            "Балансы успешно перезаписаны из main.json в drivers.json"
+          );
+        }
+      });
+    });
+  });
+}
+
+// Запуск синхронизации каждые 60 секунд
+setInterval(syncBalances, 60000);
+
+// Первоначальный запуск синхронизации
+syncBalances();
+
+// Маршрут для страницы авторизации
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "login.html"));
+});
+
+// Маршрут для обработки авторизации
+app.post("/login", (req, res) => {
+  const { username, password } = req.body;
+
+  // Читаем файл с пользователями
+  fs.readFile(
+    path.join(__dirname, "data", "users.json"),
+    "utf8",
+    (err, data) => {
+      if (err) {
+        return res
+          .status(500)
+          .json({ success: false, message: "Ошибка сервера" });
+      }
+
+      const users = JSON.parse(data);
+
+      // Ищем пользователя с введенными логином и паролем
+      const user = users.find(
+        (u) => u.username === username && u.password === password
+      );
+
+      if (user) {
+        // Если пользователь найден, успешный ответ
+        res.json({ success: true });
+      } else {
+        // Неверные логин или пароль
+        res.json({ success: false });
+      }
+    }
+  );
+});
+
+// Статические файлы (например, index.html)
+app.use(express.static(path.join(__dirname, "public")));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

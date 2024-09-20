@@ -24,8 +24,8 @@ document.addEventListener("DOMContentLoaded", () => {
       fileItem.innerHTML = `
                 <img src="/documents/${file}" class="file-thumbnail" alt="${file}">
                 <div class="file-actions">
-                    <a href="/documents/${file}" class="download-button" download>Скачать</a>
-                    <button class="delete-button" data-file="${file}">Удалить</button>
+                    <a href="/documents/${file}" class="download-button add-button" download>Скачать</a>
+                    <button class="delete-button add-button" data-file="${file}">Удалить</button>
                 </div>
             `;
       gallery.appendChild(fileItem);
