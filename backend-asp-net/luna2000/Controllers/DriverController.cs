@@ -3,11 +3,13 @@ using luna2000.Data;
 using luna2000.Dto;
 using luna2000.Models;
 using luna2000.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace luna2000.Controllers;
 
+[Authorize]
 public class DriverController : Controller
 {
     private readonly LunaDbContext _dbContext;
@@ -28,7 +30,7 @@ public class DriverController : Controller
             .AsNoTracking()
             .ToArray();
 
-        return View(drivers.ToArray());
+        return View(drivers);
     }
 
     [HttpGet]

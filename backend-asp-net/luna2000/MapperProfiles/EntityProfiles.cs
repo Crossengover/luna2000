@@ -8,7 +8,9 @@ public class EntityProfiles : Profile
 {
     public EntityProfiles()
     {
-        CreateMap<AddCarRequest, CarEntity>();
+        CreateMap<AddCarRequest, CarEntity>()
+            .ForMember(entity => entity.Photos, expression => expression.Ignore())
+            .ForMember(entity => entity.Id, expression => expression.Ignore());
         CreateMap<IFormFile, PhotoEntity>()
             .ForMember(entity => entity.FileName,
                 expression => expression.MapFrom(file => file.FileName))

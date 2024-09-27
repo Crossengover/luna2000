@@ -11,6 +11,8 @@ public class LunaDbContext : DbContext
 
     public DbSet<CarEntity> Cars { get; set; }
 
+    public DbSet<UserEntity> Users { get; set; }
+
     public DbSet<CarRentalEntity> CarRentals { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

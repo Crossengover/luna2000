@@ -1,0 +1,204 @@
+﻿/* Основные настройки для body */
+body {
+    font-family: "Arial", sans-serif;
+    margin: 0;
+    /*padding: 20px;*/
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+/* Центрирование страницы и установка макета */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+/* Стили для заголовков */
+h1,
+h2 {
+    color: #007bff;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Стили для навигационных кнопок */
+.nav-buttons {
+    text-align: center;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column; /* Кнопки в столбец */
+    align-items: center; /* Центрирование кнопок */
+}
+
+.nav-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    margin: 5px 0; /* Отступ между кнопками */
+    border-radius: 8px; /* Скругление кнопок */
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+    .nav-button:hover {
+        background-color: #0056b3;
+    }
+
+/* Центрирование кнопки "На главную" */
+.main-button-container {
+    text-align: center; /* Центрируем контейнер для кнопки */
+    margin-top: 20px; /* Отступ сверху */
+}
+
+.nav-button.main-button {
+    background: none; /* Убираем белый фон */
+    color: #007bff; /* Цвет текста */
+    border: 1px solid #007bff; /* Добавляем рамку */
+    padding: 10px 20px; /* Добавляем отступы */
+    border-radius: 8px; /* Скругление кнопки */
+}
+
+    .nav-button.main-button:hover {
+        background: rgba(0, 123, 255, 0.1); /* Цвет фона при наведении */
+    }
+
+/* Стили для таблицы */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+    table th,
+    table td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    table th {
+        background-color: #007bff;
+        color: white;
+    }
+
+    table tr:hover {
+        background-color: #f1f1f1;
+    }
+
+/* Стили для формы */
+form {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    max-width: 600px;
+    margin: 0 auto; /* Центрируем форму */
+}
+
+    form label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+    }
+
+    form input,
+    form select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+/* Дополнительные стили для кнопок в форме */
+#saveButton {
+    background-color: #28a745;
+    margin-right: 10px;
+}
+
+    #saveButton:hover {
+        background-color: #218838;
+    }
+
+#cancelButton {
+    background-color: #dc3545;
+}
+
+    #cancelButton:hover {
+        background-color: #c82333;
+    }
+
+/* Стили для блока списания аренды */
+#writeOffBlock {
+    text-align: center;
+    margin-top: 30px;
+}
+
+#writeOffButton {
+    background-color: #ffc107;
+    color: #333;
+}
+
+    #writeOffButton:hover {
+        background-color: #e0a800;
+    }
+
+/* Медиа-запросы для мобильной версии */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+        background-color: #fff; /* Фон контейнера на мобильных */
+    }
+
+    h1 {
+        font-size: 24px; /* Уменьшение размера заголовка на мобильных */
+    }
+
+    .nav-buttons {
+        flex-direction: column; /* Кнопки в столбец */
+        align-items: center; /* Центрирование кнопок */
+    }
+
+    .nav-button {
+        width: auto; /* Убираем 100% ширину */
+        padding: 10px 20px; /* Добавляем отступы */
+        margin: 5px 0; /* Отступ между кнопками */
+        border-radius: 8px; /* Скругление кнопок */
+    }
+}
+/* Центрирование кнопки "На главную" */
+.main-button-container {
+    text-align: center; /* Центрируем контейнер для кнопки */
+    margin-top: 20px; /* Отступ сверху */
+}
+
+/* Стили для кнопки "На главную" */
+.nav-button.main-button {
+    background: #007bff; /* Синий фон */
+    color: white; /* Цвет текста */
+    border: none; /* Убираем рамку */
+    padding: 10px 20px; /* Добавляем отступы */
+    border-radius: 8px; /* Скругление кнопки */
+}
+
+    .nav-button.main-button:hover {
+        background: #0056b3; /* Цвет фона при наведении */
+    }

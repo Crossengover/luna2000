@@ -4,48 +4,41 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using luna2000.Data;
 using luna2000.Dto;
+using Microsoft.AspNetCore.Authorization;
 
-namespace luna2000.Controllers
+namespace luna2000.Controllers;
+
+[Authorize]
+public class HomeController : Controller
 {
-    public class HomeController : Controller
+    private readonly LunaDbContext _dbContext;
+
+    public HomeController(LunaDbContext dbContext)
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly LunaDbContext _dbContext;
+        _dbContext = dbContext;
+    }
 
-        public HomeController(ILogger<HomeController> logger, LunaDbContext dbContext)
+    public IActionResult Index()
+    {
+        var mainDto = new MainViewDto
         {
-            _logger = logger;
-            _dbContext = dbContext;
-        }
-
-        public IActionResult Index()
-        {
-            var mainDto = new MainViewDto();
-
-            mainDto.Cars = _dbContext.Set<CarEntity>()
+            Cars = _dbContext.Set<CarEntity>()
                 .AsNoTracking()
-                .ToArray();
-
-            mainDto.Drivers = _dbContext.Set<DriverEntity>()
+                .ToArray(),
+            Drivers = _dbContext.Set<DriverEntity>()
                 .AsNoTracking()
-                .ToArray();
-
-            mainDto.Rentals = _dbContext.Set<CarRentalEntity>()
+                .ToArray(),
+            Rentals = _dbContext.Set<CarRentalEntity>()
                 .AsNoTracking()
-                .ToArray();
+                .ToArray()
+        };
 
-            return View(mainDto);
-        }
+        return View(mainDto);
+    }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    public IActionResult Error()
+    {
+        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }

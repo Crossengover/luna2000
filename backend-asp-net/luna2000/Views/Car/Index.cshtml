@@ -16,55 +16,56 @@
 
 <table id="carsTable">
     <thead>
-        <tr>
-            <th>Фото</th>
-            <th>Марка/Модель</th>
-            <th>ПТС</th>
-            <th>СТС</th>
-            <th>VIN-Код</th>
-            <th>Год выпуска</th>
-            <th>Дата постановки на учет</th>
-            <th>Госномер</th>
-            <th>ОСАГО</th>
-            <th>КАСКО</th>
-            <th>Техосмотр</th>
-            <th>Лицензия такси</th>
-            <th>Выкуп или аренда</th>
-            <th>В лизинге или нет</th>
-            <th>Действия</th>
-        </tr>
+    <tr>
+        <th>Фото</th>
+        <th>Марка/Модель</th>
+        <th>ПТС</th>
+        <th>СТС</th>
+        <th>VIN-Код</th>
+        <th>Год выпуска</th>
+        <th>Дата постановки на учет</th>
+        <th>Госномер</th>
+        <th>ОСАГО</th>
+        <th>КАСКО</th>
+        <th>Техосмотр</th>
+        <th>Лицензия такси</th>
+        <th>Выкуп или аренда</th>
+        <th>В лизинге или нет</th>
+        <th>Действия</th>
+    </tr>
     </thead>
     <tbody>
-        @foreach (var car in Model)
-        {
-            <tr>
-                <td>
-                    @if (car.Photos != null)
+    @foreach (var car in Model)
+    {
+        <tr>
+            <td>
+                @if (car.Photos != null)
+                {
+                    foreach (var photo in car.Photos)
                     {
-                        foreach (var photo in car.Photos)
-                        {
-                            <img src="/images/@photo.FileName" alt="@car.BrandModel" style="width: 100px; height: auto;">
-                        }
+                        <img src="/@photo.FileId@(photo.FileExtension)" style="width: 100px; height: auto;" alt="">
+                        <br>
                     }
-                </td>
-                <td>@car.BrandModel</td>
-                <td>@car.Pts</td>
-                <td>@car.Sts</td>
-                <td>@car.Vin</td>
-                <td>@car.Year</td>
-                <td>@car.RegistrationDate</td>
-                <td>@car.PlateNumber</td>
-                <td>@car.Osago</td>
-                <td>@car.Kasko</td>
-                <td>@car.TechInspection</td>
-                <td>@car.TaxiLicense</td>
-                <td>@car.PurchaseOrRent</td>
-                <td>@(car.Leasing ? "Да" : "Нет")</td>
-                <td>
-                    <button onclick="editCar('@(car.Id)')">Редактировать</button>
-                    <button onclick="deleteCar('@(car.Id)')">Удалить</button>
-                </td>
-            </tr>
-        }
+                }
+            </td>
+            <td>@car.BrandModel</td>
+            <td>@car.Pts</td>
+            <td>@car.Sts</td>
+            <td>@car.Vin</td>
+            <td>@car.Year</td>
+            <td>@car.RegistrationDate</td>
+            <td>@car.PlateNumber</td>
+            <td>@car.Osago</td>
+            <td>@car.Kasko</td>
+            <td>@car.TechInspection</td>
+            <td>@car.TaxiLicense</td>
+            <td>@car.PurchaseOrRent</td>
+            <td>@(car.Leasing ? "Да" : "Нет")</td>
+            <td>
+                <button onclick="editCar('@(car.Id)')">Редактировать</button>
+                <button onclick="deleteCar('@(car.Id)')">Удалить</button>
+            </td>
+        </tr>
+    }
     </tbody>
 </table>

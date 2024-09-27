@@ -31,4 +31,6 @@ public class AddCarRequest
     public bool PurchaseOrRent { get; set; }
 
     public bool Leasing { get; set; }
+
+    public virtual ICollection<IFormFile>? Photos { get; set; }
 }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using luna2000.Data;
 
@@ -10,9 +11,10 @@ using luna2000.Data;
 namespace luna2000.Migrations
 {
     [DbContext(typeof(LunaDbContext))]
-    partial class LunaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240921085438_fk-fix")]
+    partial class fkfix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.33");
@@ -173,29 +175,6 @@ namespace luna2000.Migrations
                     b.HasIndex("DriverId");
 
                     b.ToTable("Photos");
-                });
-
-            modelBuilder.Entity("luna2000.Models.UserEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Login")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("luna2000.Models.CarRentalEntity", b =>

@@ -1,12 +1,156 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+    blockquote:before,
+    blockquote:after,
+    q:before,
+    q:after {
+        content: "";
+        content: none;
+    }
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
 /* Общие стили для всего приложения */
+:root {
+    --primary-color: #007bff;
+    --hover-color: #033f7f;
+    --light-bg: #f8f9fa;
+    --light-border: #ced4da;
+    --dark-bg: #f9f9f9;
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f8f9fa;
+    background-color: var(--light-bg);
 }
 
-h1 {
+h1,
+h2 {
     text-align: center;
     color: #333;
     margin: 1rem 0;
@@ -16,30 +160,43 @@ h1 {
 table {
     width: 100%;
     border-collapse: collapse;
-    margin: 1rem 0;
+    margin: 20px 0;
+    font-size: 18px;
+    text-align: left;
 }
 
 th,
 td {
-    padding: 0.75rem;
-    border: 1px solid #dee2e6;
-    text-align: left;
+    padding: 12px 15px;
 }
 
-thead {
-    background-color: #007bff;
-    color: #fff;
+th {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    text-transform: uppercase;
 }
 
-tr:nth-child(even) {
+td {
+    background-color: var(--light-bg);
+}
+
+tr:nth-child(even) td {
     background-color: #f2f2f2;
 }
 
+tr:hover td {
+    background-color: #dcdcdc;
+}
+
 /* Кнопки */
-button {
+button,
+.add-button,
+.edit-button,
+.delete-button,
+.nav-button {
     padding: 0.5rem 1rem;
     margin: 0.5rem;
-    background-color: #007bff;
+    background-color: var(--primary-color);
     color: #fff;
     border: none;
     border-radius: 0.75rem;
@@ -48,140 +205,51 @@ button {
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-    button:hover {
-        background-color: #033f7f;
+    button:hover,
+    .add-button:hover,
+    .edit-button:hover,
+    .delete-button:hover,
+    .nav-button:hover {
+        background-color: var(--hover-color);
         transform: translateY(-2px);
     }
 
-    button:active {
+    button:active,
+    .add-button:active,
+    .edit-button:active,
+    .delete-button:active,
+    .nav-button:active {
         transform: translateY(0);
     }
 
 /* Стили для формы */
 form {
-    margin: 1rem;
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    animation: slideIn 0.6s forwards;
 }
 
-    form table {
+    form input[type="text"],
+    form input[type="number"],
+    form input[type="date"],
+    form input[type="file"],
+    form input[type="password"] {
         width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid var(--light-border);
+        border-radius: 5px;
+        font-size: 14px;
+        transition: border-color 0.3s;
     }
 
-    form td {
-        padding: 0.5rem;
-    }
-
-input[type="text"],
-input[type="number"],
-input[type="date"],
-input[type="file"] {
-    width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #ced4da;
-    border-radius: 0.25rem;
-}
-
-input[type="checkbox"] {
-    margin-right: 0.5rem;
-}
-
-/* Стили для кнопок добавления новой пары */
-.add-button {
-    padding: 0.5rem 1rem;
-    margin: 1rem 0;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 0.75rem;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-    .add-button:hover {
-        background-color: #033f7f;
-        transform: translateY(-2px);
-    }
-
-    .add-button:active {
-        transform: translateY(0);
-    }
-
-/* Стили для кнопок редактирования и удаления */
-.edit-button,
-.delete-button {
-    padding: 0.5rem 1rem;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 0.75rem;
-    cursor: pointer;
-    font-size: 0.875rem;
-    margin: 0.25rem;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-    .edit-button:hover,
-    .delete-button:hover {
-        background-color: #033f7f;
-        transform: translateY(-2px);
-    }
-
-    .edit-button:active,
-    .delete-button:active {
-        transform: translateY(0);
-    }
-
-/* Стили для блока списания аренды */
-.write-off-block {
-    margin: 1rem 0;
-    padding: 1rem;
-    border: 1px solid #007bff;
-    border-radius: 0.75rem;
-    background-color: #e9ecef;
-}
-
-.write-off-button {
-    background-color: #dc3545;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 0.75rem;
-    color: #fff;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-    .write-off-button:hover {
-        background-color: #c82333;
-        transform: translateY(-2px);
-    }
-
-    .write-off-button:active {
-        transform: translateY(0);
-    }
-
-/* Стили для блока "Назад" и других кнопок навигации */
-.nav-button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 0.75rem;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    font-size: 1rem;
-    margin: 0.5rem;
-    text-decoration: none;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-    .nav-button:hover {
-        background-color: #033f7f;
-        transform: translateY(-2px);
-    }
-
-    .nav-button:active {
-        transform: translateY(0);
-    }
+        form input[type="text"]:focus,
+        form input[type="password"]:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
 
 /* Стили для навигационных кнопок */
 .nav-buttons {
@@ -190,6 +258,46 @@ input[type="checkbox"] {
     margin: 1rem 0;
 }
 
-    .nav-buttons a {
-        margin: 0 0.5rem;
+/* Стили для страницы авторизации */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--light-bg);
+    flex-direction: column;
+}
+
+.login-form {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+/* Анимация */
+@keyframes slideIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
+}
+
+@media screen and (max-width: 800px) {
+    .nav-buttons {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .nav-button {
+        width: fit-content;
+    }
+
+    .nav-btn-wrapper {
+        margin-bottom: 20px;
+        width: fit-content;
+    }
+}

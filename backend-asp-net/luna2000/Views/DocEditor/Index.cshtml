@@ -1,0 +1,45 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model luna2000.Dto.EditorViewDto
+
+<h1>Редактор документов</h1>
+<div class="container">
+    <div class="header">
+        <a href="/" class="nav-button">На главную</a>
+    </div>
+    <!-- Выбор шаблона Word-документа -->
+    <form id="documentForm" action="/doceditor/EditFile" method="POST">
+        <label for="template">Выберите шаблон:</label>
+        <select name="fileName" id="template">
+            <!-- Шаблоны будут загружаться динамически -->
+            @foreach (var docName in Model.FileNames)
+            {
+                <option value="@docName">@docName</option>
+            }
+        </select>
+
+        <label for="driver">Выберите водителя:</label>
+        <select name="driverId" id="driver">
+            @foreach (var driver in Model.Drivers)
+            {
+                <option value="@driver.driverId">@driver.name</option>
+            }
+        </select>
+
+        <label for="car">Выберите машину:</label>
+        <select name="carId" id="car">
+            <!-- Машины будут загружаться динамически -->
+            @foreach (var car in Model.Cars)
+            {
+                <option value="@car.carId">@car.name</option>
+            }
+        </select>
+
+        <button type="submit">Сгенерировать документ</button>
+    </form>
+</div>
+
+@section Scripts
+    {
+    <script src="js/editor.js"></script>
+    <link rel="stylesheet" href="~/css/editor.css" asp-append-version="true" />
+}
