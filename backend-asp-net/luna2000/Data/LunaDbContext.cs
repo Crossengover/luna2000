@@ -17,7 +17,7 @@ public class LunaDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlite("Data Source=DB\\\\data.db");
+        optionsBuilder.UseSqlite($"Data Source={Path.Combine("DB", "data.db")}");
         base.OnConfiguring(optionsBuilder);
     }
 
