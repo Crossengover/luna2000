@@ -48,12 +48,12 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function editCar(id) {
-  window.location.href = `edit-car.html?id=${id}`;
+  window.location.href = `/car/edit?id=${id}`;
 }
 
 function deleteCar(id) {
   if (confirm("Вы уверены, что хотите удалить этот автомобиль?")) {
-    fetch(`/delete-car/${id}`, {
+    fetch(`/car/delete/${id}`, {
       method: "DELETE",
     })
       .then((response) => response.json())

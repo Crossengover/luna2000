@@ -4,7 +4,7 @@ function editDriver(id) {
 
 function deleteDriver(id) {
   if (confirm("Вы уверены, что хотите удалить этого водителя?")) {
-    fetch(`/delete-driver/${id}`, { method: "DELETE" })
+    fetch(`/driver/delete/${id}`, { method: "DELETE" })
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {

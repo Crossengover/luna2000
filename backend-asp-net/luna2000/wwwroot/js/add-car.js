@@ -54,7 +54,8 @@ document
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
-          alert("Автомобиль успешно добавлен!");
+            alert("Автомобиль успешно добавлен!");
+            location.replace("/car");
           document.getElementById("addCarForm").reset();
         } else {
           alert("Ошибка при добавлении автомобиля.");

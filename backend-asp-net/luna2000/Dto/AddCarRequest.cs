@@ -4,7 +4,7 @@ namespace luna2000.Dto;
 
 public class AddCarRequest
 {
-    public string Id { get; set; } = default!;
+    public Guid Id { get; set; } = default!;
 
     public string BrandModel { get; set; } = default!;
 
@@ -16,7 +16,7 @@ public class AddCarRequest
 
     public int Year { get; set; } = default!;
 
-    public DateOnly RegistrationDate { get; set; } = default!;
+    public DateTime RegistrationDate { get; set; } = default!;
 
     public string PlateNumber { get; set; } = default!;
 
@@ -24,11 +24,11 @@ public class AddCarRequest
 
     public string Kasko { get; set; } = default!;
 
-    public DateOnly TechInspection { get; set; } = default!;
+    public DateTime TechInspection { get; set; } = default!;
 
     public string TaxiLicense { get; set; } = default!;
 
-    public bool PurchaseOrRent { get; set; }
+    public string PurchaseOrRent { get; set; }
 
     public bool Leasing { get; set; }
 

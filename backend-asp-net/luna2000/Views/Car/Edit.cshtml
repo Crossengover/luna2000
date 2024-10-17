@@ -1,0 +1,90 @@
+﻿@model CarEntity
+
+<h1>Редактирование автомобиля</h1>
+
+<form id="editCarForm">
+    <table>
+        <tr>
+            <input hidden id="carId" value="@Model.Id" />
+            <td>Марка/Модель:</td>
+            <td><input type="text" id="brandModel" required value="@Model.BrandModel"/></td>
+        </tr>
+        <tr>
+            <td>ПТС:</td>
+            <td><input type="text" id="pts" required value="@Model.Pts" /></td>
+        </tr>
+        <tr>
+            <td>СТС:</td>
+            <td><input type="text" id="sts" required value="@Model.Sts" /></td>
+        </tr>
+        <tr>
+            <td>VIN-Код:</td>
+            <td><input type="text" id="vin" required value="@Model.Vin" /></td>
+        </tr>
+        <tr>
+            <td>Год выпуска:</td>
+            <td><input type="number" id="year" required value="@Model.Year" /></td>
+        </tr>
+        <tr>
+            <td>Дата постановки на учет:</td>
+            <td><input type="date" id="registrationDate" required value="@Model.RegistrationDate.ToString("yyyy-MM-dd")" /></td>
+        </tr>
+        <tr>
+            <td>Госномер:</td>
+            <td><input type="text" id="plateNumber" required value="@Model.PlateNumber" /></td>
+        </tr>
+        <tr>
+            <td>ОСАГО:</td>
+            <td><input type="text" id="osago" required value="@Model.Osago" /></td>
+        </tr>
+        <tr>
+            <td>КАСКО:</td>
+            <td><input type="text" id="kasko" value="@Model.Kasko" /></td>
+        </tr>
+        <tr>
+            <td>Техосмотр:</td>
+            <td><input type="date" id="techInspection" value="@Model.TechInspection.ToString("yyyy-MM-dd")" /></td>
+        </tr>
+        <tr>
+            <td>Лицензия такси:</td>
+            <td><input type="checkbox" id="taxiLicense" @(Model.TaxiLicense ? "checked" : string.Empty) /></td>
+        </tr>
+        <tr>
+            <td>Выкуп или аренда:</td>
+            <td><input type="text" id="purchaseOrRent" required value="@Model.PurchaseOrRent" /></td>
+        </tr>
+        <tr>
+            <td>В лизинге:</td>
+            <td><input type="checkbox" id="leasing" @(Model.Leasing ? "checked" : string.Empty) /></td>
+        </tr>
+        <tr>
+            <td>Фото автомобиля (до 10 шт.):</td>
+            <td>
+                <input type="file" id="photos" accept="image/*" multiple value="@Model.Photos"/>
+                <div id="existingPhotos">
+                    @if (Model.Photos != null)
+                    {
+                        @foreach (var photo in Model.Photos)
+                        {
+                            <img src="/@photo.FileId@photo.FileExtension" style="width: 100px; height: auto;">
+                        }
+                    }
+                </div>
+            </td>
+        </tr>
+       
+    </table>
+    <div class="button-container">
+        <button type="submit" class="add-button">Редактировать автомобиль</button>
+        <button type="button"
+                class="add-button"
+                onclick="window.history.back();">
+            Назад
+        </button>
+    </div>
+</form>
+
+@section Scripts
+{
+    <script src="/js/edit-car.js"></script>
+}

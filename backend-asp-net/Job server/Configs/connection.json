@@ -1,0 +1,6 @@
+{
+  "ConnectionConfiguration": {
+    "BaseUrl": "localhost",
+    "Port": 5270
+  }
+}

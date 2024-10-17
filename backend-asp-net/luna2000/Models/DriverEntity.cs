@@ -23,5 +23,7 @@ public class DriverEntity
 
     public string Registration { get; set; }
 
+    public decimal Balance { get; set; }
+
     public virtual ICollection<PhotoEntity>? Photos { get; set; }
 }

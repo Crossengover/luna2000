@@ -16,13 +16,14 @@ public class FileStorage : IFileStorage
     public async Task<Guid> SaveFileAsync(byte[] data, string fileExtension)
     {
         var fileId = Guid.NewGuid();
-        await File.WriteAllBytesAsync($"{_saveDir}/{fileId}{fileExtension}", data);
+        var path = Path.Combine(_saveDir, $"{fileId}{fileExtension}");
+        await File.WriteAllBytesAsync(path, data);
         return fileId;
     }
 
-    public async Task<byte[]> LoadFileAsync(Guid fileId)
+    public async Task<byte[]> LoadFileAsync(Guid fileId, string fileExtension)
     {
-        var path = $"{_saveDir}/{fileId}";
+        var path = Path.Combine(_saveDir, fileId.ToString(), fileExtension);
 
         if (!File.Exists(path))
         {
@@ -30,5 +31,16 @@ public class FileStorage : IFileStorage
         }
 
         return await File.ReadAllBytesAsync(path);
+    }
+
+    public void DeletePhoto(Guid photoId)
+    {
+        var file = Directory.GetFiles(_saveDir, $"{photoId}*")
+            .FirstOrDefault();
+
+        if (file != null)
+        {
+            File.Delete(file);
+        }
     }
 }

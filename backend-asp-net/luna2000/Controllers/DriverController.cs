@@ -64,6 +64,24 @@ public class DriverController : Controller
         await _dbContext.AddAsync(driver);
         await _dbContext.SaveChangesAsync();
 
-        return Ok();
+        return Ok(new { success = true });
+    }
+
+    [HttpDelete]
+    [Route("/driver/delete/{id}")]
+    public IActionResult Delete(Guid id)
+    {
+        var driver = _dbContext.Set<DriverEntity>()
+            .FirstOrDefault(entity => entity.Id == id);
+
+        if (driver == null)
+        {
+            return NotFound();
+        }
+
+        _dbContext.Remove(driver);
+        _dbContext.SaveChanges();
+
+        return Ok(new { success=true });
     }
 }

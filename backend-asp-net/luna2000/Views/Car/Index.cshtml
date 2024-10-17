@@ -58,7 +58,7 @@
             <td>@car.Osago</td>
             <td>@car.Kasko</td>
             <td>@car.TechInspection</td>
-            <td>@car.TaxiLicense</td>
+            <td>@(car.TaxiLicense ? "Да" : "Нет")</td>
             <td>@car.PurchaseOrRent</td>
             <td>@(car.Leasing ? "Да" : "Нет")</td>
             <td>
@@ -69,3 +69,8 @@
     }
     </tbody>
 </table>
+
+@section Scripts
+{
+    <script src="/js/view-cars.js"></script>
+}

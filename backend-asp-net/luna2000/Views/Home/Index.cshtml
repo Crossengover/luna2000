@@ -1,4 +1,5 @@
-﻿@model luna2000.Dto.MainViewDto
+﻿@using System.Globalization
+@model luna2000.Dto.MainViewDto
 
 <h1>Главная страница</h1>
 
@@ -23,6 +24,47 @@
     </thead>
     <tbody>
         <!-- Данные будут вставлены с помощью JavaScript -->
+        @foreach (var rental in Model.Rentals)
+        {
+            @if (rental.Driver == null || rental.Car == null)
+            {
+                <tr>
+                    <div>
+                        Bad Data
+                    </div>
+                </tr>
+
+                continue;
+            }
+
+            <tr>
+                <td>
+                    @rental.Driver.Fio
+                </td>
+                <td>
+                    @rental.Car.BrandModel (@rental.Car.PlateNumber)
+                </td>
+                <td>
+                    <input type="number" class="balance"
+                           value="@rental.Driver.Balance.ToString(CultureInfo.InvariantCulture).Replace(',', '.')"
+                           readonly="">
+                </td>
+                <td>
+
+                    <input type="number" step=".01" class="rent"
+                       value="@rental.Rent.ToString(CultureInfo.InvariantCulture).Replace(',', '.')"
+                       readonly="">
+                </td>
+                <td>
+                    <button class="edit-button"
+                            data-driver="@rental.DriverId"
+                            data-car="@rental.CarId"
+                            data-rent="@rental.Rent.ToString(CultureInfo.InvariantCulture).Replace(',', '.')"
+                            data-id="@rental.Id">Редактировать</button>
+                    <button class="delete-button" data-id="@rental.Id">Удалить</button>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 
@@ -45,9 +87,6 @@
         }
     </select><br />
 
-    <label for="balance">Баланс:</label>
-    <input type="number" id="balance" step="0.01" required /><br />
-
     <label for="rent">Аренда:</label>
     <input type="number" id="rent" step="0.01" required /><br />
 
@@ -64,6 +103,6 @@
 
 
 @section Scripts
-{
+    {
     <script src="js/index.js"></script>
 }

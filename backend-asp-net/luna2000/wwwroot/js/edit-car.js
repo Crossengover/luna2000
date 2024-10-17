@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .catch((error) => console.error("Ошибка загрузки данных:", error));
 
   function redirectToViewCars() {
-    window.location.href = "view-cars.html";
+    window.location.href = "/car";
   }
 
   document
@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
         formData.append("photos", photoFiles[i]);
       }
 
-      fetch(`/edit-car/${document.getElementById("carId").value}`, {
+      fetch(`/car/edit/${document.getElementById("carId").value}`, {
         method: "POST",
         body: formData,
       })

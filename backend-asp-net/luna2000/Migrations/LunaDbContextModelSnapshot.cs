@@ -17,6 +17,44 @@ namespace luna2000.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.33");
 
+            modelBuilder.Entity("luna2000.Models.BaseLog", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("ChangeId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("EntryId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("EventType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("NewValue")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ObjectName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("OldValue")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PropertyName")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BaseLogs");
+                });
+
             modelBuilder.Entity("luna2000.Models.CarEntity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -108,6 +146,9 @@ namespace luna2000.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("Balance")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Contacts")
@@ -221,11 +262,13 @@ namespace luna2000.Migrations
                 {
                     b.HasOne("luna2000.Models.CarEntity", "Car")
                         .WithMany("Photos")
-                        .HasForeignKey("CarId");
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("luna2000.Models.DriverEntity", "Driver")
                         .WithMany("Photos")
-                        .HasForeignKey("DriverId");
+                        .HasForeignKey("DriverId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Car");
 

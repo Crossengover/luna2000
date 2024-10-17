@@ -27,6 +27,8 @@
   <ItemGroup>
     <Folder Include="MapperProfiles\" />
     <Folder Include="Service\" />
+    <Folder Include="Extensions\" />
+    <Folder Include="Middlewares\" />
   </ItemGroup>
 
   <ItemGroup>

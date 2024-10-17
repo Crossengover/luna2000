@@ -1,0 +1,48 @@
+﻿@using luna2000.Extensions
+@model IEnumerable<IGrouping<Guid, luna2000.Dto.HistoryDto>>
+
+<table>
+    <thead>
+        <tr>
+            <th>Событие</th>
+            <th>Текстовое описание</th>
+            <th>Объект события</th>
+            <th>Старое значение</th>
+            <th>Новое значение</th>
+            <th>Время</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var logGroup in Model)
+        {
+            var firstLog = logGroup.First();
+
+            <tr>
+                <td>@firstLog.EventType.GetDescription()</td>
+                <td>@firstLog.Note</td>
+                <td>
+                    @foreach (var objName in logGroup.Select(dto => dto.ObjectName))
+                    {
+                        <p>@objName</p>
+                        <br>
+                    }
+                </td>
+                <td>
+                    @foreach (var old in logGroup.Select(dto => dto.OldValue))
+                    {
+                        <p>@old</p>
+                        <br>
+                    }
+                </td>
+                <td>
+                    @foreach (var newValue in logGroup.Select(dto => dto.NewValue))
+                    {
+                        <p>@newValue</p>
+                        <br>
+                    }
+                </td>
+                <td>@firstLog.Created</td>
+            </tr>
+        }
+    </tbody>
+</table>
